@@ -3,7 +3,10 @@ import { createStore } from "vuex";
 export default createStore({
   state: {
     app: {
-      name: "Vue AdminLTE",
+      name: "Gestão",
+    },
+    user: {
+      name: "José Mateus",
     },
   },
   getters: {},

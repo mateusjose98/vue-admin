@@ -4,7 +4,6 @@
 
     <SideBar></SideBar>
     <div class="content-wrapper">
-      <ContentHeader></ContentHeader>
       <router-view></router-view>
     </div>
 
@@ -25,8 +24,14 @@
 import NavBar from "./inc/NavBar";
 import SideBar from "./inc/SideBar";
 import ContentHeader from "@/components/ContentHeader";
+
 export default {
   name: "MainLayout",
+  data() {
+    return {
+      isLoading: false,
+    };
+  },
   components: {
     NavBar,
     SideBar,
