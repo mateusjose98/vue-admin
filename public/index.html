@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -7,17 +7,30 @@
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
     <title><%= htmlWebpackPlugin.options.title %></title>
 
-    <link
+    <!-- <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"
+    /> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
+      rel="stylesheet"
     />
-
     <link
       rel="stylesheet"
       href="/adminlte/plugins/fontawesome-free/css/all.min.css"
     />
 
     <link rel="stylesheet" href="/adminlte/dist/css/adminlte.min.css?v=3.2.0" />
+    <style>
+      * {
+        font-family: "Inter", sans-serif;
+      }
+      .main-sidebar {
+        background-color: #333 !important;
+      }
+    </style>
   </head>
   <body class="hold-transition sidebar-mini">
     <noscript>

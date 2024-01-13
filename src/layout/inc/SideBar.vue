@@ -52,6 +52,16 @@
           <NavItem icon="fas fa-home" link="/">Home</NavItem>
           <NavItem icon="fas fa-info-circle" link="/sobre">Sobre</NavItem>
           <NavItem icon="fas fa-home" link="/outro">Alguma coisa</NavItem>
+          <NavItemTree
+            :links="[
+              { name: 'busca', url: 'pesquisa-aluno' },
+              { name: 'cadastro', url: 'cadastro-aluno' },
+            ]"
+            icon="fas fa-home"
+            link="/outro"
+            :root="Teste"
+            >Aluno</NavItemTree
+          >
         </ul>
       </nav>
     </div>
@@ -60,12 +70,12 @@
 
 <script>
 import NavItem from "./NavItem.vue";
-
+import NavItemTree from "./NavItemTree.vue";
 export default {
   name: "SideBar",
   components: {
     NavItem,
-    NavItem,
+    NavItemTree,
   },
 };
 </script>
