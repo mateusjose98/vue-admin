@@ -8,9 +8,17 @@ export default createStore({
     user: {
       name: "José Mateus",
     },
+    isLoading: false,
   },
   getters: {},
-  mutations: {},
+  mutations: {
+    toggleLoading(state, payload) {
+      if (payload) {
+        state.isLoading = payload;
+      } else {
+        state.isLoading = false;
+      }
+    },
+  },
   actions: {},
-  modules: {},
 });

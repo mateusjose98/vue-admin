@@ -1,4 +1,11 @@
 <template>
+  <loading
+    v-model:active="$store.state.isLoading"
+    :can-cancel="false"
+    :is-full-page="true"
+    background-color="#000"
+    color="#00f"
+  />
   <div class="wrapper">
     <NavBar></NavBar>
 
@@ -24,18 +31,16 @@
 import NavBar from "./inc/NavBar";
 import SideBar from "./inc/SideBar";
 import ContentHeader from "@/components/ContentHeader";
-
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/css/index.css";
 export default {
   name: "MainLayout",
-  data() {
-    return {
-      isLoading: false,
-    };
-  },
+  data() {},
   components: {
     NavBar,
     SideBar,
     ContentHeader,
+    Loading,
   },
 };
 </script>

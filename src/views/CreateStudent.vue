@@ -156,8 +156,11 @@ export default {
   },
   methods: {
     async buscarTodos() {
-      const service = new AlunoService();
-      console.log(await service.getAlunos());
+      this.$store.commit("toggleLoading", true);
+      setTimeout(() => {
+        const service = new AlunoService();
+        this.$store.commit("toggleLoading", false);
+      }, 3000);
     },
   },
 };
