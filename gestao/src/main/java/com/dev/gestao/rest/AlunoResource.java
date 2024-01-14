@@ -42,6 +42,13 @@ public class AlunoResource {
         return new ResponseEntity<>(createdId, HttpStatus.CREATED);
     }
 
+    @PostMapping("batch")
+    @ApiResponse(responseCode = "201")
+    public ResponseEntity<Void> createAlunoBatch(@RequestBody @Valid final List<AlunoDTO> lista) {
+       alunoService.createInBatch(lista);
+        return new ResponseEntity<>(null, HttpStatus.CREATED);
+    }
+
     @PostMapping(value = "upsert-foto/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ApiResponse(responseCode = "201")
     public ResponseEntity<Map<String, String>> upsertFoto(@PathVariable final Integer id, @RequestParam("file") MultipartFile file) {

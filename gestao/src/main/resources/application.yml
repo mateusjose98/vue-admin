@@ -1,12 +1,16 @@
 server:
   port: 8081
 spring:
+
+
+  application:
+    name: gestao-api
   servlet:
     multipart:
       max-request-size: ${MAX_REQUEST_SIZE:20MB}
       max-file-size: ${MAX_FILE_SIZE:15MB}
   datasource:
-    url: ${JDBC_DATABASE_URL:jdbc:postgresql://localhost:5432/gestao}
+    url: ${JDBC_DATABASE_URL:jdbc:postgresql://localhost:5432/gestao?reWriteBatchedInserts=true}
     username: ${JDBC_DATABASE_USERNAME:postgres}
     password: ${JDBC_DATABASE_PASSWORD:P4ssword!}
     dbcp2:
@@ -20,6 +24,7 @@ spring:
     properties:
       hibernate:
         jdbc:
+          batch_size: 30
           lob:
             non_contextual_creation: true
         id:
@@ -38,3 +43,15 @@ aws:
     secret_access_key: ${S3_SECRET_ACCESS_KEY}
     region: us-east-2
     bucket: escola-gestao-soft
+
+secretKey: 1b2d7a2079285f016ee03c922440bdfaa6cdc31ab0e0a9f98c018b6528ae78d4
+
+logging:
+  org:
+    springframework:
+      security: DEBUG
+  level:
+    net:
+      ttddyy:
+        dsproxy:
+          listener: debug

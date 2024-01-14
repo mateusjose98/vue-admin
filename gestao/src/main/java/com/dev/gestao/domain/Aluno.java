@@ -29,9 +29,9 @@ public class Aluno {
     @Column(nullable = false, updatable = false)
     @SequenceGenerator(
             name = "primary_sequence",
-            sequenceName = "primary_sequence",
-            allocationSize = 1,
-            initialValue = 10000
+            sequenceName = "Aluno_sequence",
+            allocationSize = 50,
+            initialValue = 100
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,

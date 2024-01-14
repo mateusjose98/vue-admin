@@ -7,6 +7,7 @@ import com.dev.gestao.util.NotFoundException;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.dev.gestao.util.UniqueViolationException;
 import lombok.RequiredArgsConstructor;
@@ -98,5 +99,22 @@ public class AlunoService {
         aluno.setFoto(link);
         alunoRepository.save(aluno);
         return aluno.getFoto();
+    }
+
+    @Transactional
+    public void createInBatch(List<AlunoDTO> lista) {
+
+        List<Aluno> toInsert = lista.stream().map(dto ->  {
+            final Aluno aluno = new Aluno();
+            return mapToEntity(dto, aluno);
+        }).collect(Collectors.toList());
+        var salvos = alunoRepository.saveAll(toInsert);
+
+        salvos.forEach(aluno -> {
+            aluno.setMatricula(String.valueOf(LocalDate.now().getYear()) +  aluno.getId() );
+        });
+
+        alunoRepository.saveAll(salvos);
+
     }
 }
