@@ -6,6 +6,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.dev.gestao.domain.Acesso;
+import com.dev.gestao.domain.Usuario;
 import com.dev.gestao.util.DateUtils;
 
 import lombok.extern.log4j.Log4j2;
@@ -13,7 +15,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Log4j2
@@ -28,28 +34,35 @@ public class JWTTokenService {
             "${spring.application.name}"
     )
     private String appName;
+    @Value("${jwt.cookieExpiry}")
+    private int cookieExpiry;
 
-    public List<String> generateTokens(String username) {
+    public List<String> generateTokens(Usuario usuario) {
 
-        String accessToken = generateToken(username, DateUtils.instantAfter(30) );
-        String refreshToken = generateToken(username, DateUtils.instantAfter(40 ));
+        String accessToken = generateToken(usuario.getUsername(), DateUtils.instantAfter(cookieExpiry), usuario.getAcessos() );
+        String refreshToken = generateToken(usuario.getUsername(), DateUtils.instantAfter(cookieExpiry + 1 ), null);
 
         return List.of(accessToken, refreshToken);
     }
 
-    public String generateToken(String username, Instant expiresAt) {
+    public String generateToken(String username, Instant expiresAt, Set<Acesso> acessos) {
         log.info("Gerando token para usuário {}", username);
 
         try {
             Algorithm algorithm = Algorithm.HMAC256(secretKey);
-            return JWT.create()
+            var token = JWT.create()
                     .withIssuer(appName)
                     .withSubject(username)
                     .withClaim("chave", "dados extras(perfil, roels, etc)")
                     .withExpiresAt(
                             expiresAt
-                    )
-                    .sign(algorithm);
+                    );
+            if(acessos != null) {
+                List<Acesso> mainList = new ArrayList<>();
+                mainList.addAll(acessos);
+                token.withClaim("acessos", mainList.stream().map(Acesso::getDescricao).collect(Collectors.toList()));
+            }
+            return token.sign(algorithm);
         } catch (JWTCreationException exception){
             log.error("Erro ao gerar token para usuário {}", username);
             throw new RuntimeException("Erro ao gerar token para usuário {}");
@@ -76,8 +89,8 @@ public class JWTTokenService {
     }
 
 
-    public List<String> generateRefreshToken(String token) {
-        return this.generateTokens(getSubject(token));
+    public List<String> generateRefreshToken(Usuario usuario) {
+        return this.generateTokens(usuario);
     }
 
     public String getSubject(String tokenJWT) {

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,12 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UsuarioResource {
 
-    @Autowired
-    private UsuarioService usuarioService;
+
+    final UsuarioService usuarioService;
+    final PasswordEncoder encoder;
 
     @PostMapping
     public ResponseEntity<UsuarioDTO> criar(@RequestBody @Valid UsuarioDTO usuarioDTO) {
-        usuarioDTO = usuarioService.criar(this.toEntity(usuarioDTO));
+        usuarioDTO = usuarioService.criar(this.toEntity(usuarioDTO), usuarioDTO.getAcessos());
         return new ResponseEntity<>(usuarioDTO, HttpStatus.CREATED);
     }
 
@@ -34,6 +36,7 @@ public class UsuarioResource {
         Usuario usuario = new Usuario();
         usuario.setId(dto.getId());
         usuario.setLogin(dto.getLogin());
+        usuario.setSenha(encoder.encode(dto.getSenha()));
         return usuario;
     }
 }

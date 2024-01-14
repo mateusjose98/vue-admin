@@ -16,7 +16,7 @@ public class Acesso implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private Long id;
+    private Integer id;
     @Column(nullable = false)
     private String descricao;
     @Override

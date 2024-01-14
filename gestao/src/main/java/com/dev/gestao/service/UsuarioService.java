@@ -1,8 +1,10 @@
 package com.dev.gestao.service;
 
+import com.dev.gestao.domain.Acesso;
 import com.dev.gestao.domain.Usuario;
 import com.dev.gestao.model.UsuarioDTO;
 
+import com.dev.gestao.repos.AcessoRepository;
 import com.dev.gestao.repos.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Service
 @RequiredArgsConstructor
 @Log4j2
@@ -20,6 +26,7 @@ public class UsuarioService {
 
     final UsuarioRepository usuarioRepository;
     final PasswordEncoder passwordEncoder;
+    final AcessoRepository acessoRepository;
 
     public Usuario findByLogin(String login) {
         return usuarioRepository.findByLogin(login)
@@ -46,7 +53,9 @@ public class UsuarioService {
         return null;
     }
 
-    public UsuarioDTO criar(Usuario usuario) {
+    public UsuarioDTO criar(Usuario usuario, Set<Integer> acessosIds) {
+        HashSet<Acesso> acessos = new HashSet<>(acessoRepository.findAllById(acessosIds));
+        usuario.setAcessos(acessos);
         usuario = usuarioRepository.save(usuario);
         return new UsuarioDTO(usuario);
     }

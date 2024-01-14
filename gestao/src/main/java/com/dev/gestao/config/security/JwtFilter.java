@@ -6,6 +6,7 @@ import com.dev.gestao.service.UsuarioService;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,7 @@ public class JwtFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
 
         var tokenJWT = getTokenFrom(request);
+
         if(tokenJWT != null) {
             var subject = jwtTokenService.getSubject(tokenJWT);
             Usuario user = usuarioService.findByLogin(subject);
@@ -44,11 +46,16 @@ public class JwtFilter extends OncePerRequestFilter {
     }
 
     private String getTokenFrom(HttpServletRequest request) {
-        var authorizationHeader = request.getHeader("Authorization");
-        if (authorizationHeader != null) {
-            return authorizationHeader.replace("Bearer ", "");
+        String token = null;
+
+        if(request.getCookies() != null){
+            for(Cookie cookie: request.getCookies()){
+                if(cookie.getName().equals("accessToken")){
+                    token = cookie.getValue();
+                }
+            }
         }
-        return null;
+        return token;
 
     }
 }

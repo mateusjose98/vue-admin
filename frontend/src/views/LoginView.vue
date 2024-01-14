@@ -1,16 +1,21 @@
 <template>
   <div class="login-box">
     <div class="login-logo">
-      <a href="/"><b>Admin</b>LTE</a>
+      {{ $store.state.app.name }}
     </div>
     <!-- /.login-logo -->
     <div class="card">
       <div class="card-body login-card-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+        <p class="login-box-msg">Faça o login para iniciar uma sessão</p>
 
-        <form action="/login" method="post" @submit.prevent="login()">
+        <form method="post" @submit.prevent="login">
           <div class="input-group mb-3">
-            <input type="email" class="form-control" placeholder="Email" />
+            <input
+              v-model="username"
+              type="text"
+              class="form-control"
+              placeholder="00000000000"
+            />
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-envelope"></span>
@@ -22,6 +27,7 @@
               type="password"
               class="form-control"
               placeholder="Password"
+              v-model="password"
             />
             <div class="input-group-append">
               <div class="input-group-text">
@@ -31,10 +37,10 @@
           </div>
           <div class="row">
             <div class="col-8">
-              <div class="icheck-primary">
+              <!-- <div class="icheck-primary">
                 <input type="checkbox" id="remember" />
                 <label for="remember"> Remember Me </label>
-              </div>
+              </div> -->
             </div>
             <!-- /.col -->
             <div class="col-4">
@@ -46,35 +52,35 @@
           </div>
         </form>
 
-        <div class="social-auth-links text-center mb-3">
-          <p>- OR -</p>
-          <a href="#" class="btn btn-block btn-primary">
-            <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-          </a>
-          <a href="#" class="btn btn-block btn-danger">
-            <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-          </a>
-        </div>
-        <!-- /.social-auth-links -->
-
         <p class="mb-1">
-          <a href="forgot-password.html">I forgot my password</a>
-        </p>
-        <p class="mb-0">
-          <a href="register.html" class="text-center"
-            >Register a new membership</a
-          >
+          <a href="forgot-password.html">Esqueci minha senha</a>
         </p>
       </div>
+      <pre>{{ $store.state.token }}</pre>
       <!-- /.login-card-body -->
     </div>
   </div>
 </template>
 <script>
+import AuthService from "../services/AuthService";
+
 export default {
+  data() {
+    return {
+      username: null,
+      password: null,
+    };
+  },
   methods: {
-    login() {
-      window.location.href = "/";
+    async login() {
+      try {
+        await this.$store.dispatch("login", {
+          username: this.username,
+          password: this.password,
+        });
+      } catch (error) {
+        console.error("Erro durante o login:", error);
+      }
     },
   },
   beforeMount() {

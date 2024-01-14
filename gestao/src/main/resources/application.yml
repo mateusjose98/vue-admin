@@ -45,7 +45,8 @@ aws:
     bucket: escola-gestao-soft
 
 secretKey: 1b2d7a2079285f016ee03c922440bdfaa6cdc31ab0e0a9f98c018b6528ae78d4
-
+jwt:
+  cookieExpiry: 1
 logging:
   org:
     springframework:

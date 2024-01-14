@@ -60,9 +60,10 @@ public class SecurityConfig {
         http.sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         http.authorizeHttpRequests((requests) -> requests
-                .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                .requestMatchers(HttpMethod.POST, "/auth/login", "/api/usuarios").permitAll()
                 .requestMatchers("/swagger-ui/**", "v3/**").permitAll()
                 .requestMatchers("/api/alunos/**").permitAll()
+
                 .anyRequest().authenticated());
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
