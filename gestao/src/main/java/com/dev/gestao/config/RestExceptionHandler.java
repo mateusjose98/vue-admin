@@ -1,9 +1,9 @@
 package com.dev.gestao.config;
 
-import com.dev.gestao.model.ErrorResponse;
-import com.dev.gestao.model.ErroCampo;
-import com.dev.gestao.util.NotFoundException;
-import com.dev.gestao.util.UniqueViolationException;
+import com.dev.gestao.util.exceptions.ErrorResponse;
+import com.dev.gestao.util.exceptions.ErroCampo;
+import com.dev.gestao.util.exceptions.NotFoundException;
+import com.dev.gestao.util.exceptions.UniqueViolationException;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.List;
 import java.util.stream.Collectors;

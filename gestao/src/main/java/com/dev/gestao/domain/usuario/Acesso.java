@@ -1,4 +1,4 @@
-package com.dev.gestao.domain;
+package com.dev.gestao.domain.usuario;
 
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;

@@ -39,3 +39,7 @@ build/
 gestao/.env
 *.env
 /gestao/.env
+
+frontend/.DS_Store
+frontend/node_modules
+frontend/dist

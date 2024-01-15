@@ -1,4 +1,4 @@
-package com.dev.gestao.model;
+package com.dev.gestao.domain.aluno;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

@@ -1,4 +1,4 @@
-package com.dev.gestao.util;
+package com.dev.gestao.util.exceptions;
 
 
 public class NotFoundException extends RuntimeException {

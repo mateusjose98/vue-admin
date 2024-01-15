@@ -1,8 +1,8 @@
 package com.dev.gestao.service;
 
-import com.dev.gestao.domain.Acesso;
-import com.dev.gestao.domain.Usuario;
-import com.dev.gestao.model.UsuarioDTO;
+import com.dev.gestao.domain.usuario.Acesso;
+import com.dev.gestao.domain.usuario.Usuario;
+import com.dev.gestao.domain.usuario.UsuarioDTO;
 
 import com.dev.gestao.repos.AcessoRepository;
 import com.dev.gestao.repos.UsuarioRepository;
@@ -15,7 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Service

@@ -1,4 +1,4 @@
-package com.dev.gestao.model;
+package com.dev.gestao.util.exceptions;
 
 import lombok.Getter;
 import lombok.Setter;

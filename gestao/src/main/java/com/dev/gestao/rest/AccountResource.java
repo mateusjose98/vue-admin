@@ -2,7 +2,7 @@ package com.dev.gestao.rest;
 
 
 
-import com.dev.gestao.domain.Usuario;
+import com.dev.gestao.domain.usuario.Usuario;
 import com.dev.gestao.service.JWTTokenService;
 import com.dev.gestao.service.UsuarioService;
 import jakarta.servlet.http.HttpServletRequest;

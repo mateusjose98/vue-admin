@@ -1,16 +1,14 @@
 package com.dev.gestao.rest;
 
 
-import com.dev.gestao.domain.Usuario;
-import com.dev.gestao.model.UsuarioDTO;
+import com.dev.gestao.domain.usuario.Usuario;
+import com.dev.gestao.domain.usuario.UsuarioDTO;
 import com.dev.gestao.service.UsuarioService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -6,8 +6,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.dev.gestao.domain.Acesso;
-import com.dev.gestao.domain.Usuario;
+import com.dev.gestao.domain.usuario.Acesso;
+import com.dev.gestao.domain.usuario.Usuario;
 import com.dev.gestao.util.DateUtils;
 
 import lombok.extern.log4j.Log4j2;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;

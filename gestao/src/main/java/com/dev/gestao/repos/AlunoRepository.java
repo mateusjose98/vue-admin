@@ -1,6 +1,6 @@
 package com.dev.gestao.repos;
 
-import com.dev.gestao.domain.Aluno;
+import com.dev.gestao.domain.aluno.Aluno;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

@@ -1,13 +1,12 @@
 package com.dev.gestao.rest;
 
-import com.dev.gestao.model.AlunoDTO;
+import com.dev.gestao.domain.aluno.AlunoDTO;
 import com.dev.gestao.service.AlunoService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

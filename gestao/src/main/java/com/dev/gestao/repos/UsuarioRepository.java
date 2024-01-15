@@ -1,7 +1,7 @@
 package com.dev.gestao.repos;
 
 
-import com.dev.gestao.domain.Usuario;
+import com.dev.gestao.domain.usuario.Usuario;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;

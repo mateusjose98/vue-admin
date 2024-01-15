@@ -1,4 +1,4 @@
-package com.dev.gestao.domain;
+package com.dev.gestao.domain.aluno;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

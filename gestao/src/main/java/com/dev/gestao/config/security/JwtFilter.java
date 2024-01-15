@@ -1,6 +1,6 @@
 package com.dev.gestao.config.security;
 
-import com.dev.gestao.domain.Usuario;
+import com.dev.gestao.domain.usuario.Usuario;
 import com.dev.gestao.service.JWTTokenService;
 import com.dev.gestao.service.UsuarioService;
 

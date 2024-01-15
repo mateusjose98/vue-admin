@@ -1,5 +1,6 @@
-package com.dev.gestao.domain;
+package com.dev.gestao.domain.usuario;
 
+import com.dev.gestao.domain.usuario.Acesso;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -11,7 +12,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.HashSet;

@@ -1,15 +1,15 @@
 package com.dev.gestao.service;
 
-import com.dev.gestao.domain.Aluno;
-import com.dev.gestao.model.AlunoDTO;
+import com.dev.gestao.domain.aluno.Aluno;
+import com.dev.gestao.domain.aluno.AlunoDTO;
 import com.dev.gestao.repos.AlunoRepository;
-import com.dev.gestao.util.NotFoundException;
+import com.dev.gestao.util.exceptions.NotFoundException;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.dev.gestao.util.UniqueViolationException;
+import com.dev.gestao.util.exceptions.UniqueViolationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;

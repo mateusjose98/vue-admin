@@ -1,15 +1,11 @@
-package com.dev.gestao.model;
+package com.dev.gestao.domain.usuario;
 
-import com.dev.gestao.domain.Usuario;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Data
