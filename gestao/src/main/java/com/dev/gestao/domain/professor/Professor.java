@@ -1,31 +1,25 @@
-package com.dev.gestao.domain.aluno;
+package com.dev.gestao.domain.professor;
 
-import com.dev.gestao.domain.usuario.Usuario;
 import jakarta.persistence.*;
-
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.time.Period;
-
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-
+import java.time.OffsetDateTime;
 @Entity
-@Table(name = "Alunos")
+@Table(name = "Professores")
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
-public class Aluno {
+public class Professor {
 
     @Id
     @Column(nullable = false, updatable = false)
     @SequenceGenerator(
             name = "primary_sequence",
-            sequenceName = "Aluno_sequence",
+            sequenceName = "Professor_sequence",
             allocationSize = 50,
             initialValue = 100
     )
@@ -44,19 +38,8 @@ public class Aluno {
     @Column(nullable = false, length = 100)
     private String email;
 
-    @Column(length = 4)
-    private String uf;
-
-    @Column(columnDefinition = "text")
-    private String foto;
-
-    @Column
-    private String matricula;
-
     @Column
     private String telefone;
-    private LocalDate dataNascimento;
-
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private OffsetDateTime dateCreated;
@@ -64,17 +47,4 @@ public class Aluno {
     @LastModifiedDate
     @Column(nullable = false)
     private OffsetDateTime lastUpdated;
-
-    @Embedded
-    private Responsavel responsavel;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn
-    private Usuario usuario;
-
-    public int idade() {
-        final Period periodo = Period.between(this.dataNascimento, LocalDate.now());
-        return periodo.getYears();
-    }
-
 }

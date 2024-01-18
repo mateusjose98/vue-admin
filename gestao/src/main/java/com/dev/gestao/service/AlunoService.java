@@ -2,6 +2,7 @@ package com.dev.gestao.service;
 
 import com.dev.gestao.domain.aluno.Aluno;
 import com.dev.gestao.domain.aluno.AlunoDTO;
+import com.dev.gestao.domain.usuario.Usuario;
 import com.dev.gestao.repos.AlunoRepository;
 import com.dev.gestao.util.exceptions.NotFoundException;
 
@@ -24,6 +25,7 @@ public class AlunoService {
 
     private final AlunoRepository alunoRepository;
     private final StorageService storageService;
+    private final UsuarioService usuarioService;
 
 
     public List<AlunoDTO> findAll() {
@@ -40,10 +42,15 @@ public class AlunoService {
     }
     @Transactional
     public Integer create(final AlunoDTO alunoDTO) {
+        final Aluno aluno = new Aluno();
         if(cpfExists(alunoDTO.getCpf())) {
            throw new UniqueViolationException(String.format("O cpf %s já existe!", alunoDTO.getCpf()));
         }
-        final Aluno aluno = new Aluno();
+        if(alunoDTO.isCriarAcesso()) {
+            Usuario usuario = usuarioService.criaraPartirDasCredenciais(alunoDTO.getCpf(), alunoDTO.getCpf());
+            aluno.setUsuario(usuario);
+        }
+
         mapToEntity(alunoDTO, aluno);
         Aluno salvo = alunoRepository.save(aluno);
         Integer id = salvo.getId();

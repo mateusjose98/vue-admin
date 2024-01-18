@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import Cookies from "js-cookie";
+
 import AuthService from "@/services/AuthService";
 export default createStore({
   state: {
@@ -10,7 +10,6 @@ export default createStore({
       name: "José Mateus",
     },
     isLoading: false,
-    token: Cookies.get("token") || null,
   },
   getters: {},
   mutations: {

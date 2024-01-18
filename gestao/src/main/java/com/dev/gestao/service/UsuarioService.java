@@ -58,6 +58,11 @@ public class UsuarioService {
         usuario = usuarioRepository.save(usuario);
         return new UsuarioDTO(usuario);
     }
+    public Usuario criaraPartirDasCredenciais(String username, String rawPasword) {
+        String encoded = passwordEncoder.encode(rawPasword);
+        return new Usuario().fromCredentials(username, encoded);
+    }
+
 
 
 

@@ -28,11 +28,11 @@
                     <label for="cpf">CPF</label>
                     <input
                       type="text"
-                      maxlength="11"
                       class="form-control"
                       id="cpf"
                       placeholder="Digite apenas os números"
                       v-model="aluno.cpf"
+                      v-mask="'###.###.###-##'"
                     />
                   </div>
                 </div>
@@ -69,7 +69,7 @@
                     <label for="telefone">Telefone</label>
                     <input
                       type="text"
-                      maxlength="20"
+                      v-mask="'(##) #####-####'"
                       class="form-control"
                       id="telefone"
                       placeholder="Digite apenas os números"

@@ -2,9 +2,7 @@ package com.dev.gestao.domain.usuario;
 
 import com.dev.gestao.domain.usuario.Acesso;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -23,6 +21,9 @@ import java.util.Set;
 @Setter
 @EntityListeners(AuditingEntityListener.class)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Usuario implements UserDetails {
 
     @Id
@@ -37,6 +38,7 @@ public class Usuario implements UserDetails {
             strategy = GenerationType.SEQUENCE,
             generator = "Usuario_sequence"
     )
+    @EqualsAndHashCode.Include
     private Integer id;
     private String login;
     private String senha;
@@ -92,6 +94,13 @@ public class Usuario implements UserDetails {
 
     public void updatePassword(PasswordEncoder passwordEncoder, String newPassword) {
         this.setSenha(passwordEncoder.encode(newPassword));
+    }
+
+    public static Usuario fromCredentials(String username, String hashPassword) {
+        Usuario result = new Usuario();
+        result.setLogin(username);
+        result.setSenha(hashPassword);
+        return result;
     }
 
 }
