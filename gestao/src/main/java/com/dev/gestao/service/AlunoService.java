@@ -41,6 +41,9 @@ public class AlunoService {
                 .toList();
     }
 
+    public Aluno getById(final Integer id) {
+        return alunoRepository.findById(id).orElseThrow(NotFoundException::new);
+    }
     public AlunoDTO get(final Integer id) {
         return alunoRepository.findById(id)
                 .map(aluno -> mapToDTO(aluno, new AlunoDTO()))
@@ -132,5 +135,9 @@ public class AlunoService {
 
         alunoRepository.saveAll(salvos);
 
+    }
+
+    public Aluno getRefById(Integer integer) {
+        return alunoRepository.getReferenceById(integer);
     }
 }

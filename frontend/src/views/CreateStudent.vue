@@ -3,10 +3,6 @@
   <content>
     <div class="row">
       <div class="col-3">
-        <a href="mailbox.html" class="btn btn-primary btn-block mb-3"
-          >Salvar estado atual</a
-        >
-
         <div class="card">
           <div class="card-header">
             <h3 class="card-title">Etapas</h3>
@@ -24,37 +20,60 @@
           <div class="card-body p-0">
             <ul class="nav nav-pills flex-column">
               <li class="nav-item active">
-                <a href="#" class="nav-link">
-                  <i class="fas fa-inbox"></i> Dados básicos
+                <a
+                  href="#"
+                  @click="step = 1"
+                  class="nav-link"
+                  :class="{ active: step === 1 }"
+                >
+                  <i class="far fa-address-card"></i> Dados básicos
                   <span class="badge bg-primary float-right">*</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-envelope"></i> Dados escolares
+                <a
+                  href="#"
+                  @click="step = 2"
+                  :class="{ active: step === 2 }"
+                  class="nav-link"
+                >
+                  <i class="fas fa-user-graduate"></i> Dados escolares
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-file-alt"></i> Financeiro
+                <a
+                  href="#"
+                  @click="step = 3"
+                  :class="{ active: step === 3 }"
+                  class="nav-link"
+                >
+                  <i class="far fa-money-bill-alt"></i> Financeiro
                 </a>
               </li>
             </ul>
           </div>
           <!-- /.card-body -->
         </div>
+        <a href="mailbox.html" class="btn btn-success btn-block mb-3"
+          >Concluir</a
+        >
       </div>
-      <div class="col-sm-12 col-md-12 col-lg-9">
+
+      <div v-show="step === 1" class="col-sm-12 col-md-12 col-lg-9">
         <DefaultCard titulo="Cadastro">
           <FormBasicInfoStudent :aluno="{}" />
         </DefaultCard>
       </div>
-
-      <div class="col-sm-12 col-md-12 col-lg-12">
-        <DefaultCard titulo="Últimos alunos">
-          <ListStudentView :lista="studentList"></ListStudentView>
-        </DefaultCard>
+      <div v-show="step === 2" class="col-sm-12 col-md-12 col-lg-9">
+        <DefaultCard titulo="Cadastro"> TESTE 2 </DefaultCard>
       </div>
+      <div v-show="step === 3" class="col-sm-12 col-md-12 col-lg-9">
+        <DefaultCard titulo="Cadastro"> TESTE 3 </DefaultCard>
+      </div>
+
+      <!-- <div class="col-sm-12 col-md-12 col-lg-12">
+        <DefaultCard titulo="Últimos alunos"> <ListStudentView /></DefaultCard>
+      </div> -->
     </div>
   </content>
 </template>
@@ -68,6 +87,7 @@ export default {
   data() {
     return {
       studentList: [],
+      step: 1,
     };
   },
   created() {
@@ -76,7 +96,12 @@ export default {
   methods: {
     async listar() {
       const alunoService = new AlunoService();
-      this.studentList = await alunoService.getAlunos();
+      await alunoService
+        .getAlunos()
+        .then((r) => {
+          this.studentList = r;
+        })
+        .catch(() => {});
     },
   },
   components: {

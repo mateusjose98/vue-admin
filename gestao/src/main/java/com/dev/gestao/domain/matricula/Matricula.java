@@ -1,5 +1,6 @@
-package com.dev.gestao.domain.aluno;
+package com.dev.gestao.domain.matricula;
 
+import com.dev.gestao.domain.aluno.Aluno;
 import com.dev.gestao.domain.carne.Carne;
 import com.dev.gestao.domain.turma.Turma;
 import jakarta.persistence.*;
@@ -35,7 +36,7 @@ public class Matricula {
 
     @ManyToOne
     @JoinColumn
-    private  Aluno aluno;
+    private Aluno aluno;
     @ManyToOne
     @JoinColumn
     private Turma turma;

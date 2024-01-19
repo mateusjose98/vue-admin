@@ -21,7 +21,6 @@ import java.util.Set;
 @Service
 @RequiredArgsConstructor
 @Log4j2
-
 public class UsuarioService {
 
     final UsuarioRepository usuarioRepository;
