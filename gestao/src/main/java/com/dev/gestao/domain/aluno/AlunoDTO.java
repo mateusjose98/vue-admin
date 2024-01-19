@@ -35,5 +35,8 @@ public class AlunoDTO {
     private String telefone;
     private boolean criarAcesso;
     private String matricula;
+    private Integer serieId;
 
+    private String nomeResponsavel;
+    private String cpfResponsavel;
 }

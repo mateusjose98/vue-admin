@@ -2,6 +2,8 @@ package com.dev.gestao.service;
 
 import com.dev.gestao.domain.aluno.Aluno;
 import com.dev.gestao.domain.aluno.AlunoDTO;
+import com.dev.gestao.domain.aluno.Responsavel;
+import com.dev.gestao.domain.enums.TipoEmailEvento;
 import com.dev.gestao.domain.usuario.Usuario;
 import com.dev.gestao.repos.AlunoRepository;
 import com.dev.gestao.util.exceptions.NotFoundException;
@@ -17,6 +19,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import static com.dev.gestao.domain.enums.TipoEmailEvento.NOVO_USUARIO;
+import static com.dev.gestao.domain.enums.TipoEmailEvento.NOVO_USUARIO_ASSUNTO;
+
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +31,8 @@ public class AlunoService {
     private final AlunoRepository alunoRepository;
     private final StorageService storageService;
     private final UsuarioService usuarioService;
-
+    private final NotificacaoService notificacaoService;
+    private final ResponsavelService responsavelService;
 
     public List<AlunoDTO> findAll() {
         final List<Aluno> alunoes = alunoRepository.findAll(Sort.by("id").descending());
@@ -49,12 +55,15 @@ public class AlunoService {
         if(alunoDTO.isCriarAcesso()) {
             Usuario usuario = usuarioService.criaraPartirDasCredenciais(alunoDTO.getCpf(), alunoDTO.getCpf());
             aluno.setUsuario(usuario);
+            notificacaoService.enviar(NOVO_USUARIO_ASSUNTO,String.format(NOVO_USUARIO, alunoDTO.getNome()), alunoDTO.getEmail(), null) ;
         }
 
         mapToEntity(alunoDTO, aluno);
+
         Aluno salvo = alunoRepository.save(aluno);
+        responsavelService.criar(alunoDTO.getCpfResponsavel(), alunoDTO.getNome(), salvo);
         Integer id = salvo.getId();
-        salvo.setMatricula(String.valueOf(LocalDate.now().getYear()) +  id );
+        salvo.gerarMatricula(id);
         return id;
     }
     @Transactional

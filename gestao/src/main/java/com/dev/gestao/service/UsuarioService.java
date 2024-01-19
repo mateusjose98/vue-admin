@@ -1,5 +1,6 @@
 package com.dev.gestao.service;
 
+import com.dev.gestao.domain.enums.TipoEmailEvento;
 import com.dev.gestao.domain.usuario.Acesso;
 import com.dev.gestao.domain.usuario.Usuario;
 import com.dev.gestao.domain.usuario.UsuarioDTO;
@@ -26,6 +27,7 @@ public class UsuarioService {
     final UsuarioRepository usuarioRepository;
     final PasswordEncoder passwordEncoder;
     final AcessoRepository acessoRepository;
+    final NotificacaoService notificacaoService;
 
     public Usuario findByLogin(String login) {
         return usuarioRepository.findByLogin(login)
@@ -58,11 +60,18 @@ public class UsuarioService {
         usuario = usuarioRepository.save(usuario);
         return new UsuarioDTO(usuario);
     }
+    public Usuario criar(Usuario usuario, String descricaoAcesso) {
+        Set<Acesso> acesso = Set.of(acessoRepository.findByDescricao(descricaoAcesso));
+        usuario.setAcessos(acesso);
+        usuario = usuarioRepository.save(usuario);
+        return usuario;
+    }
     public Usuario criaraPartirDasCredenciais(String username, String rawPasword) {
         String encoded = passwordEncoder.encode(rawPasword);
-        return new Usuario().fromCredentials(username, encoded);
+        Usuario usuario = Usuario.fromCredentials(username, encoded);
+        var usuarioSalvo = this.criar(usuario, "ROLE_ALUNO");
+        return usuarioSalvo;
     }
-
 
 
 

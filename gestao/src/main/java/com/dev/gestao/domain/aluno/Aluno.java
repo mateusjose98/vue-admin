@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.time.Period;
+import java.util.HashSet;
+import java.util.Set;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -65,16 +67,17 @@ public class Aluno {
     @Column(nullable = false)
     private OffsetDateTime lastUpdated;
 
-    @Embedded
-    private Responsavel responsavel;
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn
     private Usuario usuario;
+
 
     public int idade() {
         final Period periodo = Period.between(this.dataNascimento, LocalDate.now());
         return periodo.getYears();
     }
 
+    public void gerarMatricula(Integer id) {
+        this.setMatricula(String.valueOf(LocalDate.now().getYear()) +  id);
+    }
 }

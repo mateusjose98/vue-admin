@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AcessoRepository extends JpaRepository<Acesso, Integer>, JpaSpecificationExecutor<Acesso> {
+
+    Acesso findByDescricao(String descricao);
 }

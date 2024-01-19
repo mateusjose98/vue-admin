@@ -1,5 +1,6 @@
 package com.dev.gestao.domain.aluno;
 
+import com.dev.gestao.domain.carne.Carne;
 import com.dev.gestao.domain.turma.Turma;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -7,19 +8,21 @@ import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "Aluno_Turma")
+@Table(name = "Matriculas")
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
-public class AlunoTurma {
+public class Matricula {
 
     @Id
     @Column(nullable = false, updatable = false)
     @SequenceGenerator(
-            name = "primary_sequence",
-            sequenceName = "Aluno_Turma_sequence",
+            name = "Matricula_sequence",
+            sequenceName = "Matricula_sequence",
             allocationSize = 50,
             initialValue = 100
     )
@@ -37,5 +40,10 @@ public class AlunoTurma {
     @JoinColumn
     private Turma turma;
 
-    private LocalDateTime data;
+    private LocalDateTime dataMatricula;
+
+    @OneToOne
+    @JoinColumn
+    private Carne carne;
+
 }

@@ -23,7 +23,13 @@ export default class HttpClient {
         return await response.json();
       } else {
         const body = await response.json();
-        throw new Error(`[${response.status}]: ${body.message}`);
+        if (body.message) {
+          throw new Error(`[${response.status}]: ${body.message}`);
+        } else {
+          for (let element of body.fieldErrors) {
+            throw new Error(`[${response.status}]: ${element.description}`);
+          }
+        }
       }
     } catch (error) {
       this.handleErrors(error);

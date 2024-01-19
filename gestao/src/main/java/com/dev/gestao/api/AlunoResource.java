@@ -1,4 +1,4 @@
-package com.dev.gestao.rest;
+package com.dev.gestao.api;
 
 import com.dev.gestao.domain.aluno.AlunoDTO;
 import com.dev.gestao.service.AlunoService;

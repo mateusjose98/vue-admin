@@ -57,7 +57,7 @@ public class RestExceptionHandler {
         errorResponse.setHttpStatus(HttpStatus.BAD_REQUEST.value());
         errorResponse.setException(exception.getClass().getSimpleName());
         errorResponse.setFieldErrors(erroCampos);
-        errorResponse.setMessage(erroCampos.stream().map(ErroCampo::getDescription).collect(Collectors.joining(";")));
+//        errorResponse.setMessage(erroCampos.stream().map(ErroCampo::getDescription).collect(Collectors.joining(";")));
         exception.printStackTrace();
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
