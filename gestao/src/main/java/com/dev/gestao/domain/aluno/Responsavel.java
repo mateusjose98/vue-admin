@@ -32,6 +32,8 @@ public class Responsavel {
 
     @Column(length = 20)
     private String cpfResponsavel;
+    @Column(length = 20)
+    private String telefoneResponsavel;
     @ManyToOne
     @JoinColumn
     private Aluno aluno;

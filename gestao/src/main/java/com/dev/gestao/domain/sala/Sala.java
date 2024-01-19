@@ -28,4 +28,5 @@ public class Sala {
 
     @Column(nullable = false)
     private String nome;
+    private Integer capacidade;
 }

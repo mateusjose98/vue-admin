@@ -34,6 +34,7 @@ public class Turma {
     private Integer id;
     private int ano;
     private String descricao;
+    private Integer vagasDisponiveis;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "turma")
     private Set<Disciplina> disciplinas = new HashSet<>();
@@ -49,12 +50,12 @@ public class Turma {
             inverseJoinColumns = @JoinColumn(name = "professor_id"))
     private Set<Professor> professores = new HashSet<>();
 
-    public void addBranches(Disciplina disciplina){
+    public void addDisciplina(Disciplina disciplina){
         disciplinas.add(disciplina);
         disciplina.setTurma(this);
     }
 
-    public void removeBranches(Disciplina disciplina){
+    public void removerDisciplina(Disciplina disciplina){
         disciplinas.remove(disciplina);
         disciplina.setTurma(null);
     }

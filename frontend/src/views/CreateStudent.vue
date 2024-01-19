@@ -2,195 +2,54 @@
   <content-header title="Matricular novo aluno"></content-header>
   <content>
     <div class="row">
-      <div class="col-sm-12 col-md-12 col-lg-12">
-        <DefaultCard titulo="Últimos alunos">
-          <form @submit.prevent="matricular">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-sm-12 col-md-8 col-lg-9">
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="form-group">
-                        <label for="nome">Nome</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="nome"
-                          placeholder="Nome completo ..."
-                          v-model="aluno.nome"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="form-group">
-                        <label for="cpf">CPF</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="cpf"
-                          placeholder="Digite apenas os números"
-                          v-model="aluno.cpf"
-                          v-mask="'###.###.###-##'"
-                        />
-                      </div>
-                    </div>
-                  </div>
+      <div class="col-3">
+        <a href="mailbox.html" class="btn btn-primary btn-block mb-3"
+          >Salvar estado atual</a
+        >
 
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="form-group">
-                        <label for="cpfResponsavel">Nome Responsável</label>
-                        <input
-                          type="text"
-                          maxlength="300"
-                          class="form-control"
-                          id="nomeResponsavel"
-                          placeholder="Digite o nome do responsável"
-                          v-model="aluno.nomeResponsavel"
-                        />
-                      </div>
-                    </div>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Etapas</h3>
 
-                    <div class="col-6">
-                      <div class="form-group">
-                        <label for="cpfResponsavel">CPF Responsável</label>
-                        <input
-                          type="text"
-                          maxlength="150"
-                          class="form-control"
-                          id="cpfResponsavel"
-                          placeholder="Digite apenas os números"
-                          v-model="aluno.cpfResponsavel"
-                          v-mask="'###.###.###-##'"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-12 col-md-2 col-lg-1">
-                  <div>
-                    <img
-                      style="height: 170px; width: auto; max-width: 170px"
-                      :src="
-                        previewImage
-                          ? previewImage
-                          : 'https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/no-profile-picture-icon.png'
-                      "
-                      alt="..."
-                      class="img-thumbnail"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-6">
-                  <div class="form-group">
-                    <label for="dataNascimento">Data de nascimento</label>
-                    <input
-                      type="date"
-                      class="form-control"
-                      id="dataNascimento"
-                      v-model="aluno.dataNascimento"
-                    />
-                  </div>
-                </div>
-                <div class="col-6">
-                  <div class="form-group">
-                    <label for="telefone">Telefone</label>
-                    <input
-                      type="text"
-                      v-mask="'(##) #####-####'"
-                      class="form-control"
-                      id="telefone"
-                      placeholder="Digite apenas os números"
-                      v-model="aluno.telefone"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-6">
-                  <div class="form-group">
-                    <label for="email">Email</label>
-                    <input
-                      type="email"
-                      maxlength="150"
-                      class="form-control"
-                      id="email"
-                      placeholder="Digite apenas os números"
-                      v-model="aluno.email"
-                    />
-                  </div>
-                </div>
-                <div class="col-6">
-                  <div class="form-group">
-                    <label for="exampleFormControlSelect1"
-                      >Estado de nascimento</label
-                    >
-                    <select
-                      v-model="aluno.uf"
-                      class="form-control"
-                      id="exampleFormControlSelect1"
-                    >
-                      <option value="AC">Acre</option>
-                      <option value="AL">Alagoas</option>
-                      <option value="AP">Amapá</option>
-                      <option value="AM">Amazonas</option>
-                      <option value="BA">Bahia</option>
-                      <option value="CE">Ceará</option>
-                      <option value="DF">Distrito Federal</option>
-                      <option value="ES">Espírito Santo</option>
-                      <option value="GO">Goiás</option>
-                      <option value="MA">Maranhão</option>
-                      <option value="MT">Mato Grosso</option>
-                      <option value="MS">Mato Grosso do Sul</option>
-                      <option value="MG">Minas Gerais</option>
-                      <option value="PA">Pará</option>
-                      <option value="PB">Paraíba</option>
-                      <option value="PR">Paraná</option>
-                      <option value="PE">Pernambuco</option>
-                      <option value="PI">Piauí</option>
-                      <option value="RJ">Rio de Janeiro</option>
-                      <option value="RN">Rio Grande do Norte</option>
-                      <option value="RS">Rio Grande do Sul</option>
-                      <option value="RO">Rondônia</option>
-                      <option value="RR">Roraima</option>
-                      <option value="SC">Santa Catarina</option>
-                      <option value="SP">São Paulo</option>
-                      <option value="SE">Sergipe</option>
-                      <option value="TO">Tocantins</option>
-                      <option value="EX">Estrangeiro</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="exampleInputFile">Foto</label>
-                <div class="input-group">
-                  <input type="file" accept="image/*" @change="uploadImage" />
-                </div>
-              </div>
-              <div class="form-check">
-                <input
-                  type="checkbox"
-                  class="form-check-input"
-                  id="exampleCheck1"
-                  v-model="aluno.criarAcesso"
-                />
-                <label class="form-check-label" for="exampleCheck1"
-                  >Criar acesso ao sistema para o aluno</label
-                >
-              </div>
+            <div class="card-tools">
+              <button
+                type="button"
+                class="btn btn-tool"
+                data-card-widget="collapse"
+              >
+                <i class="fas fa-minus"></i>
+              </button>
             </div>
-            <!-- /.card-body -->
-
-            <div class="card-footer">
-              <button type="submit" class="btn btn-primary">Cadastrar</button>
-            </div>
-          </form>
+          </div>
+          <div class="card-body p-0">
+            <ul class="nav nav-pills flex-column">
+              <li class="nav-item active">
+                <a href="#" class="nav-link">
+                  <i class="fas fa-inbox"></i> Dados básicos
+                  <span class="badge bg-primary float-right">*</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-envelope"></i> Dados escolares
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-file-alt"></i> Financeiro
+                </a>
+              </li>
+            </ul>
+          </div>
+          <!-- /.card-body -->
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-12 col-lg-9">
+        <DefaultCard titulo="Cadastro">
+          <FormBasicInfoStudent :aluno="{}" />
         </DefaultCard>
       </div>
+
       <div class="col-sm-12 col-md-12 col-lg-12">
         <DefaultCard titulo="Últimos alunos">
           <ListStudentView :lista="studentList"></ListStudentView>
@@ -203,24 +62,12 @@
 import DefaultCard from "@/components/DefaultCard.vue";
 import AlunoService from "../services/AlunoService";
 import ListStudentView from "./ListStudentView.vue";
+import FormBasicInfoStudent from "@/components/FormBasicInfoStudent.vue";
 
 export default {
   data() {
     return {
       studentList: [],
-      aluno: {
-        nome: null,
-        cpf: null,
-        dataNascimento: null,
-        telefone: null,
-        email: null,
-        uf: "MA",
-        criarAcesso: true,
-        nomeResponsavel: null,
-        cpfResponsavel: null,
-      },
-      foto: null,
-      previewImage: null,
     };
   },
   created() {
@@ -231,45 +78,13 @@ export default {
       const alunoService = new AlunoService();
       this.studentList = await alunoService.getAlunos();
     },
-    uploadImage(e) {
-      const image = e.target.files[0];
-      const reader = new FileReader();
-      if (image && image.type.match("image.*")) {
-        reader.readAsDataURL(image);
-        this.foto = image;
-        reader.onload = (e) => {
-          this.previewImage = e.target.result;
-        };
-      }
-    },
-    async matricular() {
-      this.$store.commit("toggleLoading", true);
-      const alunoService = new AlunoService();
-      alunoService
-        .criar(this.aluno)
-        .then((r) => {
-          if (this.foto) {
-            let data = new FormData();
-            data.append("file", this.foto);
-            alunoService.uploadFoto(r, data);
-          }
-          Toast.fire({
-            icon: "success",
-            title: "Aluno cadastrado com sucesso: " + r,
-          });
-          this.$store.commit("toggleLoading", false);
-        })
-        .catch((e) => {
-          this.$store.commit("toggleLoading", false);
-          console.log(e);
-        })
-        .finally(() => {
-          this.listar();
-          this.$store.commit("toggleLoading", false);
-        });
-    },
   },
-  components: { DefaultCard, ListStudentView },
+  components: {
+    DefaultCard,
+    ListStudentView,
+    FormBasicInfoStudent,
+    FormBasicInfoStudent,
+  },
 };
 </script>
 <style scoped></style>
