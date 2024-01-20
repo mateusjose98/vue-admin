@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -41,6 +42,20 @@ public class Carne {
     @OneToMany(mappedBy = "carne")
     private Set<Parcela> parcelas = new HashSet<>();
     private Integer numeroParcelas;
+
+    public void gerarParcelas(int diaVencimento) {
+        int anoAtual = LocalDate.now().getYear();
+        int mesAtual = LocalDate.now().getMonthValue();
+        for (int mes = mesAtual; mes <= 12; mes++)
+        {
+            addParcela(
+                    Parcela.builder()
+                    .dataVencimento(LocalDate.of(anoAtual, mes, diaVencimento))
+                    .anoReferencia(anoAtual)
+                    .statusParcela(StatusParcela.EMITIDA).build());
+            this.numeroParcelas++;
+        }
+    }
 
     public void addParcela(Parcela parcela) {
         if (this.parcelas.size() <= numeroParcelas) {

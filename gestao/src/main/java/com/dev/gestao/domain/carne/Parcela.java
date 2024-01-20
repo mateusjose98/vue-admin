@@ -2,15 +2,18 @@ package com.dev.gestao.domain.carne;
 
 import com.dev.gestao.domain.usuario.Usuario;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "Parcelas")
 @EntityListeners(AuditingEntityListener.class)
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class Parcela {
@@ -30,7 +33,7 @@ public class Parcela {
     private Integer id;
 
     @Column(nullable = false)
-    private LocalDateTime dataVencimento;
+    private LocalDate dataVencimento;
     @Column(nullable = true)
     private LocalDateTime dataPagamento;
     @Enumerated(EnumType.STRING)

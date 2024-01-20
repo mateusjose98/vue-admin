@@ -1,7 +1,6 @@
 export default class HttpClient {
-  constructor(path) {
+  constructor() {
     this.baseURL = process.env.VUE_APP_API_URL;
-    this.path = path;
   }
 
   async request(path, method, data = null, isMultipart) {
@@ -41,12 +40,12 @@ export default class HttpClient {
     return this.request(path, "POST", data, isMultipart);
   }
 
-  async read() {
-    return this.request(this.path, "GET");
+  async read(path) {
+    return this.request(path, "GET");
   }
 
-  async update(data) {
-    return this.request(this.path, "PUT", data);
+  async update(path, data) {
+    return this.request(path, "PUT", data);
   }
 
   async del() {

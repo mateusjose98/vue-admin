@@ -9,24 +9,25 @@
               v-model="matricula.serieId"
               class="form-control"
               id="exampleFormControlSelect1"
+              @change="onChangeSerie($event)"
             >
-              <option value="AC">Acre</option>
-              <option value="AL">Alagoas</option>
-              <option value="AP">Amapá</option>
+              <option value="null">Selecione</option>
+              <option v-for="s in series" :value="s.id">{{ s.nome }}</option>
             </select>
           </div>
         </div>
         <div class="col-6">
           <div class="form-group">
-            <label for="exampleFormControlSelect1">Turmas do XXX</label>
+            <label for="exampleFormControlSelect1">Turmas</label>
             <select
               v-model="matricula.turmaId"
               class="form-control"
               id="exampleFormControlSelect1"
             >
-              <option value="AC">Acre</option>
-              <option value="AL">Alagoas</option>
-              <option value="AP">Amapá</option>
+              <option value="null">Selecione</option>
+              <option v-for="s in turmas" :value="s.id">
+                {{ s.descricao }}
+              </option>
             </select>
           </div>
         </div>
@@ -56,6 +57,7 @@
   </form>
 </template>
 <script>
+import TurmaService from "@/services/TurmaService";
 export default {
   name: "FormScholarInfo",
   data() {
@@ -68,7 +70,19 @@ export default {
       turmas: [],
     };
   },
+  created() {
+    new TurmaService().buscarSeries().then((r) => {
+      this.series = r;
+    });
+  },
   methods: {
+    onChangeSerie(e) {
+      this.matricula.turmaId = null;
+      new TurmaService().buscarTurmasPorSerie(e.target.value).then((r) => {
+        this.turmas = r;
+        console.log(r);
+      });
+    },
     uploadImage(e) {
       const file = e.target.files[0];
       let formData = new FormData();

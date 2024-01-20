@@ -22,6 +22,7 @@ window.Toast = Toast;
 const app = createApp(App);
 app.use(VueTheMask);
 app.use(VueSweetalert2);
+
 app
   .component("content-header", ContentHeader)
   .component("content", Content)

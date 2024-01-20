@@ -2,159 +2,177 @@
   <form @submit.prevent="matricular">
     <div class="card-body">
       <div class="row">
-        <div class="col-sm-12 col-md-8 col-lg-9">
-          <div class="row">
-            <div class="col-6">
-              <div class="form-group">
-                <label for="nome">Nome</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="nome"
-                  placeholder="Nome completo ..."
-                  v-model="aluno.nome"
-                />
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="form-group">
-                <label for="cpf">CPF</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="cpf"
-                  placeholder="Digite apenas os números"
-                  v-model="aluno.cpf"
-                  v-mask="'###.###.###-##'"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-6">
-              <div class="form-group">
-                <label for="cpfResponsavel">Nome Responsável</label>
-                <input
-                  type="text"
-                  maxlength="300"
-                  class="form-control"
-                  id="nomeResponsavel"
-                  placeholder="Digite o nome do responsável"
-                  v-model="aluno.nomeResponsavel"
-                />
-              </div>
-            </div>
-
-            <div class="col-6">
-              <div class="form-group">
-                <label for="cpfResponsavel">CPF Responsável</label>
-                <input
-                  type="text"
-                  maxlength="150"
-                  class="form-control"
-                  id="cpfResponsavel"
-                  placeholder="Digite apenas os números"
-                  v-model="aluno.cpfResponsavel"
-                  v-mask="'###.###.###-##'"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-6">
+        <div class="col-lg-3">
           <div class="form-group">
-            <label for="dataNascimento">Data de nascimento</label>
+            <label>Dia do vencimento</label>
+            <div class="custom-control custom-radio">
+              <input
+                class="custom-control-input"
+                type="radio"
+                id="customRadio1"
+                name="customRadio"
+              />
+              <label for="customRadio1" class="custom-control-label"
+                >Todo dia 5</label
+              >
+            </div>
+            <div class="custom-control custom-radio">
+              <input
+                class="custom-control-input"
+                type="radio"
+                id="customRadio2"
+                name="customRadio"
+                checked
+              />
+              <label for="customRadio2" class="custom-control-label"
+                >Todo dia 10</label
+              >
+            </div>
+            <div class="custom-control custom-radio">
+              <input
+                class="custom-control-input"
+                type="radio"
+                id="customRadio3"
+                name="customRadio"
+              />
+              <label for="customRadio3" class="custom-control-label"
+                >Todo dia 15</label
+              >
+            </div>
+          </div>
+          <div class="form-group">
+            <i class="fa fa-percent" aria-hidden="true"></i
+            ><label> Percentual de desconto</label>
             <input
-              type="date"
               class="form-control"
-              id="dataNascimento"
-              v-model="aluno.dataNascimento"
-            />
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="form-group">
-            <label for="telefone">Telefone</label>
-            <input
               type="text"
-              v-mask="'(##) #####-####'"
-              class="form-control"
-              id="telefone"
-              placeholder="Digite apenas os números"
-              v-model="aluno.telefone"
+              v-model="desconto"
+              @input="validarInput"
             />
           </div>
+          <button class="btn btn-warning mb-2">Simular parcelas</button>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-6">
-          <div class="form-group">
-            <label for="email">Email</label>
+        <div class="col-lg-9">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Resumo do carnê</h3>
+
+              <div class="card-tools"></div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0" style="height: 350px">
+              <table class="table table-head-fixed table-hover text-nowrap">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Dt. vencimento</th>
+                    <th>Status</th>
+                    <th>Mês</th>
+                    <th>Valor R$</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>100</td>
+                    <td>10/02/2023</td>
+                    <td>Emitida</td>
+                    <td>Agosto</td>
+                    <td>R$ 450,50</td>
+                  </tr>
+                  <tr>
+                    <td>100</td>
+                    <td>10/02/2023</td>
+                    <td>Emitida</td>
+                    <td>Agosto</td>
+                    <td>R$ 450,50</td>
+                  </tr>
+                  <tr>
+                    <td>100</td>
+                    <td>10/02/2023</td>
+                    <td>Emitida</td>
+                    <td>Agosto</td>
+                    <td>R$ 450,50</td>
+                  </tr>
+                  <tr>
+                    <td>100</td>
+                    <td>10/02/2023</td>
+                    <td>Emitida</td>
+                    <td>Agosto</td>
+                    <td>R$ 450,50</td>
+                  </tr>
+                  <tr>
+                    <td>100</td>
+                    <td>10/02/2023</td>
+                    <td>Emitida</td>
+                    <td>Agosto</td>
+                    <td>R$ 450,50</td>
+                  </tr>
+                  <tr>
+                    <td>100</td>
+                    <td>10/02/2023</td>
+                    <td>Emitida</td>
+                    <td>Agosto</td>
+                    <td>R$ 450,50</td>
+                  </tr>
+                  <tr>
+                    <td>100</td>
+                    <td>10/02/2023</td>
+                    <td>Emitida</td>
+                    <td>Agosto</td>
+                    <td>R$ 450,50</td>
+                  </tr>
+                  <tr>
+                    <td>100</td>
+                    <td>10/02/2023</td>
+                    <td>Emitida</td>
+                    <td>Agosto</td>
+                    <td>R$ 450,50</td>
+                  </tr>
+                  <tr>
+                    <td>100</td>
+                    <td>10/02/2023</td>
+                    <td>Emitida</td>
+                    <td>Agosto</td>
+                    <td>R$ 450,50</td>
+                  </tr>
+                  <tr>
+                    <td>100</td>
+                    <td>10/02/2023</td>
+                    <td>Emitida</td>
+                    <td>Agosto</td>
+                    <td>R$ 450,50</td>
+                  </tr>
+                  <tr>
+                    <td>100</td>
+                    <td>10/02/2023</td>
+                    <td>Emitida</td>
+                    <td>Agosto</td>
+                    <td>R$ 450,50</td>
+                  </tr>
+                  <tr>
+                    <td>100</td>
+                    <td>10/02/2023</td>
+                    <td>Emitida</td>
+                    <td>Agosto</td>
+                    <td>R$ 450,50</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- /.card-body -->
+          </div>
+          <div class="form-check">
             <input
-              type="email"
-              maxlength="150"
-              class="form-control"
-              id="email"
-              placeholder="Digite apenas os números"
-              v-model="aluno.email"
+              type="checkbox"
+              class="form-check-input"
+              id="exampleCheck1"
             />
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="form-group">
-            <label for="exampleFormControlSelect1">Estado de nascimento</label>
-            <select
-              v-model="aluno.uf"
-              class="form-control"
-              id="exampleFormControlSelect1"
+            <label class="form-check-label" for="exampleCheck1"
+              >Criar acesso ao sistema para o aluno</label
             >
-              <option value="AC">Acre</option>
-              <option value="AL">Alagoas</option>
-              <option value="AP">Amapá</option>
-              <option value="AM">Amazonas</option>
-              <option value="BA">Bahia</option>
-              <option value="CE">Ceará</option>
-              <option value="DF">Distrito Federal</option>
-              <option value="ES">Espírito Santo</option>
-              <option value="GO">Goiás</option>
-              <option value="MA">Maranhão</option>
-              <option value="MT">Mato Grosso</option>
-              <option value="MS">Mato Grosso do Sul</option>
-              <option value="MG">Minas Gerais</option>
-              <option value="PA">Pará</option>
-              <option value="PB">Paraíba</option>
-              <option value="PR">Paraná</option>
-              <option value="PE">Pernambuco</option>
-              <option value="PI">Piauí</option>
-              <option value="RJ">Rio de Janeiro</option>
-              <option value="RN">Rio Grande do Norte</option>
-              <option value="RS">Rio Grande do Sul</option>
-              <option value="RO">Rondônia</option>
-              <option value="RR">Roraima</option>
-              <option value="SC">Santa Catarina</option>
-              <option value="SP">São Paulo</option>
-              <option value="SE">Sergipe</option>
-              <option value="TO">Tocantins</option>
-              <option value="EX">Estrangeiro</option>
-            </select>
           </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label for="exampleInputFile">Foto</label>
-        <div class="input-group">
-          <input type="file" accept="image/*" @change="uploadImage" />
-        </div>
-      </div>
-      <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-        <label class="form-check-label" for="exampleCheck1"
-          >Criar acesso ao sistema para o aluno</label
-        >
       </div>
     </div>
     <!-- /.card-body -->
@@ -169,6 +187,7 @@ export default {
   name: "FormFinanceiroAluno",
   data() {
     return {
+      desconto: 0.0,
       aluno: {
         nome: null,
         cpf: null,
@@ -184,7 +203,14 @@ export default {
       previewImage: null,
     };
   },
+
   methods: {
+    validarInput() {
+      this.desconto = this.desconto.replace(/[^0-9.]/g, "");
+      if (this.desconto > 50) {
+        this.desconto = 50.0;
+      }
+    },
     uploadImage(e) {
       const image = e.target.files[0];
       const reader = new FileReader();

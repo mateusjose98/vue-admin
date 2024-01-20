@@ -2,9 +2,9 @@
   <form @submit.prevent="matricular">
     <div class="card-body">
       <div class="row">
-        <div class="col-sm-12 col-md-8 col-lg-9">
+        <div class="col-sm-12 col-md-8 col-lg-10">
           <div class="row">
-            <div class="col-6">
+            <div class="col-sm-12 col-md-6">
               <div class="form-group">
                 <label for="nome">Nome</label>
                 <input
@@ -16,7 +16,7 @@
                 />
               </div>
             </div>
-            <div class="col-6">
+            <div class="col-sm-12 col-md-6">
               <div class="form-group">
                 <label for="cpf">CPF</label>
                 <input
@@ -32,7 +32,7 @@
           </div>
 
           <div class="row">
-            <div class="col-6">
+            <div class="col-sm-12 col-md-6">
               <div class="form-group">
                 <label for="cpfResponsavel">Nome Responsável</label>
                 <input
@@ -46,7 +46,7 @@
               </div>
             </div>
 
-            <div class="col-6">
+            <div class="col-sm-12 col-md-6">
               <div class="form-group">
                 <label for="cpfResponsavel">CPF Responsável</label>
                 <input
@@ -62,10 +62,10 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-12 col-md-2 col-lg-1">
+        <div class="col-sm-12 col-md-2 col-lg-2">
           <div>
             <img
-              style="height: 170px; width: auto; max-width: 170px"
+              style="height: 150px; width: auto; max-width: 150px"
               :src="
                 previewImage
                   ? previewImage
@@ -168,7 +168,7 @@
     <!-- /.card-body -->
 
     <div class="card-footer">
-      <button type="submit" class="btn btn-default">Salvar</button>
+      <button type="submit" class="btn btn-default">Próximo</button>
     </div>
   </form>
 </template>
