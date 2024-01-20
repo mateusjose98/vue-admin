@@ -1,25 +1,24 @@
-package com.dev.gestao.domain.disciplina;
+package com.dev.gestao.domain.serie;
 
-import com.dev.gestao.domain.turma.Turma;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
-@Table(name = "Disciplinas")
+@Table(name = "Series")
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
-public class Disciplina {
+public class Serie {
 
     @Id
     @Column(nullable = false, updatable = false)
     @SequenceGenerator(
-            name = "primary_sequence",
-            sequenceName = "Disciplina_sequence",
-            allocationSize = 50,
-            initialValue = 100
+            name = "Serie_sequence",
+            sequenceName = "Serie_sequence",
+            allocationSize = 1,
+            initialValue = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
@@ -29,7 +28,5 @@ public class Disciplina {
 
     @Column(nullable = false)
     private String nome;
-
-
 
 }

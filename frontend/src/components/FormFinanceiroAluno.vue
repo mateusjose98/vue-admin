@@ -62,20 +62,6 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-12 col-md-2 col-lg-1">
-          <div>
-            <img
-              style="height: 170px; width: auto; max-width: 170px"
-              :src="
-                previewImage
-                  ? previewImage
-                  : 'https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/no-profile-picture-icon.png'
-              "
-              alt="..."
-              class="img-thumbnail"
-            />
-          </div>
-        </div>
       </div>
 
       <div class="row">
@@ -164,6 +150,12 @@
           <input type="file" accept="image/*" @change="uploadImage" />
         </div>
       </div>
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+        <label class="form-check-label" for="exampleCheck1"
+          >Criar acesso ao sistema para o aluno</label
+        >
+      </div>
     </div>
     <!-- /.card-body -->
 
@@ -174,6 +166,7 @@
 </template>
 <script>
 export default {
+  name: "FormFinanceiroAluno",
   data() {
     return {
       aluno: {

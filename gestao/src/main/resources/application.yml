@@ -38,7 +38,7 @@ spring:
       validation-query-timeout: 30
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     open-in-view: false
     properties:
       hibernate:

@@ -72,6 +72,7 @@ public class Aluno {
     private Usuario usuario;
 
 
+
     public int idade() {
         final Period periodo = Period.between(this.dataNascimento, LocalDate.now());
         return periodo.getYears();

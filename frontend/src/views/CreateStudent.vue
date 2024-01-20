@@ -65,10 +65,14 @@
         </DefaultCard>
       </div>
       <div v-show="step === 2" class="col-sm-12 col-md-12 col-lg-9">
-        <DefaultCard titulo="Cadastro"> TESTE 2 </DefaultCard>
+        <DefaultCard titulo="Dados Escolares e documentação">
+          <FormScholarInfo />
+        </DefaultCard>
       </div>
       <div v-show="step === 3" class="col-sm-12 col-md-12 col-lg-9">
-        <DefaultCard titulo="Cadastro"> TESTE 3 </DefaultCard>
+        <DefaultCard titulo="Financeiro, descontos">
+          <FormFinanceiroAluno />
+        </DefaultCard>
       </div>
 
       <!-- <div class="col-sm-12 col-md-12 col-lg-12">
@@ -79,6 +83,8 @@
 </template>
 <script>
 import DefaultCard from "@/components/DefaultCard.vue";
+import FormFinanceiroAluno from "@/components/FormFinanceiroAluno.vue";
+import FormScholarInfo from "@/components/FormScholarInfo.vue";
 import AlunoService from "../services/AlunoService";
 import ListStudentView from "./ListStudentView.vue";
 import FormBasicInfoStudent from "@/components/FormBasicInfoStudent.vue";
@@ -109,6 +115,8 @@ export default {
     ListStudentView,
     FormBasicInfoStudent,
     FormBasicInfoStudent,
+    FormScholarInfo,
+    FormFinanceiroAluno,
   },
 };
 </script>

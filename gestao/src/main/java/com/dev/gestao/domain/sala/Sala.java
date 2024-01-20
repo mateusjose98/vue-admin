@@ -17,8 +17,8 @@ public class Sala {
     @SequenceGenerator(
             name = "primary_sequence",
             sequenceName = "Sala_sequence",
-            allocationSize = 50,
-            initialValue = 100
+            allocationSize = 1,
+            initialValue = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
