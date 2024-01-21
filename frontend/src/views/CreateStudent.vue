@@ -55,17 +55,23 @@
     <div class="row">
       <div v-show="step === 1" class="col-sm-12 col-md-10">
         <DefaultCard titulo="Cadastro">
-          <FormBasicInfoStudent :aluno="{}" />
+          <FormBasicInfoStudent
+            @alunoCriado="(id) => (idAluno = id)"
+            :aluno="{}"
+          />
         </DefaultCard>
       </div>
       <div v-show="step === 2" class="col-sm-12 col-md-10">
         <DefaultCard titulo="Dados Escolares e documentação">
-          <FormScholarInfo />
+          <FormScholarInfo
+            @matriculaRealizada="(id) => (idMatricula = id)"
+            :idAluno="idAluno"
+          />
         </DefaultCard>
       </div>
       <div v-show="step === 3" class="col-sm-12 col-md-10">
         <DefaultCard titulo="Financeiro, descontos">
-          <FormFinanceiroAluno />
+          <FormFinanceiroAluno :idMatricula="idMatricula" />
         </DefaultCard>
       </div>
     </div>
@@ -84,6 +90,7 @@ export default {
     return {
       studentList: [],
       step: 1,
+      idAluno: null,
     };
   },
   created() {

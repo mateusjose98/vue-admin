@@ -8,15 +8,17 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/matriculas")
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class MatriculaResource {
 
@@ -28,12 +30,14 @@ public class MatriculaResource {
         return ResponseEntity.ok(matriculaService.findAll());
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ApiResponse(responseCode = "201")
-    public ResponseEntity<Integer> create(@RequestBody @Valid final MatriculaCriacaoDTO matriculaDTO) {
+    public ResponseEntity<Integer> create(final MatriculaCriacaoDTO matriculaDTO) {
         final Integer createdId = matriculaService.create(matriculaDTO);
         return new ResponseEntity<>(createdId, HttpStatus.CREATED);
     }
+
+
 
 
 }

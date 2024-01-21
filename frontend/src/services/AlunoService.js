@@ -2,18 +2,14 @@ import HttpClient from "./http/HttpClient";
 
 class AlunoService {
   constructor() {
-    this.http = new HttpClient("api/alunos");
+    this.http = new HttpClient();
   }
   async criar(aluno) {
-    return this.http.create(this.http.path, aluno, false);
+    return this.http.create("api/alunos", aluno, false);
   }
 
   async uploadFoto(id, formData) {
-    return this.http.create(
-      `${this.http.path}/upsert-foto/${id}`,
-      formData,
-      true
-    );
+    return this.http.create(`api/alunos/upsert-foto/${id}`, formData, true);
   }
 
   async getAlunos() {

@@ -10,6 +10,7 @@ import com.dev.gestao.util.exceptions.NotFoundException;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import com.dev.gestao.util.exceptions.UniqueViolationException;
@@ -58,7 +59,7 @@ public class AlunoService {
         if(alunoDTO.isCriarAcesso()) {
             Usuario usuario = usuarioService.criaraPartirDasCredenciais(alunoDTO.getCpf(), alunoDTO.getCpf());
             aluno.setUsuario(usuario);
-            notificacaoService.enviar(NOVO_USUARIO_ASSUNTO,String.format(NOVO_USUARIO, alunoDTO.getNome()), alunoDTO.getEmail(), null) ;
+            notificacaoService.enviar(NOVO_USUARIO_ASSUNTO,String.format(NOVO_USUARIO, alunoDTO.getNome(), UUID.randomUUID().toString().replace("-", "").substring(0, 4)), alunoDTO.getEmail(), null) ;
         }
 
         mapToEntity(alunoDTO, aluno);

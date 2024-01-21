@@ -37,7 +37,12 @@
           >Documento de identificação do aluno(certidão, RG, etc) *</label
         >
         <div class="input-group">
-          <input type="file" accept="pdf/*" @change="uploadImage" />
+          <input
+            id="identificacaoAluno"
+            type="file"
+            accept="pdf/*"
+            @change="uploadImage"
+          />
         </div>
       </div>
       <div class="form-group">
@@ -45,7 +50,12 @@
           >Histórico/declaração da escola anterior</label
         >
         <div class="input-group">
-          <input type="file" accept="image/*" />
+          <input
+            id="declaracao"
+            type="file"
+            accept="pdf/*"
+            @change="uploadImage"
+          />
         </div>
       </div>
     </div>
@@ -60,6 +70,9 @@
 import TurmaService from "@/services/TurmaService";
 export default {
   name: "FormScholarInfo",
+  props: {
+    idAluno: null,
+  },
   data() {
     return {
       matricula: {
@@ -68,6 +81,7 @@ export default {
       },
       series: [],
       turmas: [],
+      arquivos: {},
     };
   },
   created() {
@@ -85,29 +99,35 @@ export default {
     },
     uploadImage(e) {
       const file = e.target.files[0];
-      let formData = new FormData();
-      formData.append("pdf", file);
-      console.log(file);
+      const id = e.target.id;
+      this.arquivos[id] = file;
     },
     async matricular() {
+      const form = new FormData();
+      form.append("identificacaoAluno", this.arquivos.identificacaoAluno);
+      form.append("declaracao", this.arquivos.declaracao);
+      form.append("alunoId", this.idAluno);
+      form.append("turmaId", this.matricula.turmaId);
       this.$store.commit("toggleLoading", true);
-      const alunoService = new AlunoService();
-      alunoService
-        .matricular(this.matricula)
+      debugger;
+      const turmaService = new TurmaService();
+      turmaService
+        .matricular(form)
         .then((r) => {
           Toast.fire({
             icon: "success",
-            title: "Matrícula realizada com sucesso",
+            title: "Matrícula do aluno realizada com sucesso: " + r,
           });
+          this.$emit("matriculaRealizada", r);
           this.$store.commit("toggleLoading", false);
         })
         .catch((e) => {})
         .finally(() => {
-          this.listar();
           this.$store.commit("toggleLoading", false);
         });
     },
   },
+  emits: ["matriculaRealizada"],
 };
 </script>
 <style></style>

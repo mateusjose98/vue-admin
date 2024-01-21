@@ -1,2 +1,5 @@
 package com.dev.gestao.domain.matricula;
-public record MatriculaCriacaoDTO(boolean ativo, Integer alunoId, Integer turmaId){};
+
+import org.springframework.web.multipart.MultipartFile;
+
+public record MatriculaCriacaoDTO(Integer alunoId, Integer turmaId, MultipartFile identificacaoAluno, MultipartFile declaracao){};

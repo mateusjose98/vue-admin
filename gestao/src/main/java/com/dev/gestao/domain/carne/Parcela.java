@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -40,6 +41,7 @@ public class Parcela {
     private StatusParcela statusParcela;
     private String hashPagamento;
     private Integer anoReferencia;
+    private BigDecimal valor;
     @ManyToOne
     @JoinColumn
     private Carne carne;

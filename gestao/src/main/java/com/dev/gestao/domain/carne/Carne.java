@@ -1,15 +1,22 @@
 package com.dev.gestao.domain.carne;
 
 import com.dev.gestao.domain.usuario.Usuario;
+import com.dev.gestao.util.BigDecimalUtils;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import static com.dev.gestao.util.BigDecimalUtils.desconto;
 
 @Entity
 @Table(name = "Carnes")
@@ -43,7 +50,7 @@ public class Carne {
     private Set<Parcela> parcelas = new HashSet<>();
     private Integer numeroParcelas;
 
-    public void gerarParcelas(int diaVencimento) {
+    public void gerarParcelas(int diaVencimento, BigDecimal valorBase, BigDecimal percentualDesconto) {
         int anoAtual = LocalDate.now().getYear();
         int mesAtual = LocalDate.now().getMonthValue();
         for (int mes = mesAtual; mes <= 12; mes++)
@@ -52,10 +59,13 @@ public class Carne {
                     Parcela.builder()
                     .dataVencimento(LocalDate.of(anoAtual, mes, diaVencimento))
                     .anoReferencia(anoAtual)
+                    .valor(desconto(valorBase, percentualDesconto))
                     .statusParcela(StatusParcela.EMITIDA).build());
             this.numeroParcelas++;
         }
     }
+
+
 
     public void addParcela(Parcela parcela) {
         if (this.parcelas.size() <= numeroParcelas) {

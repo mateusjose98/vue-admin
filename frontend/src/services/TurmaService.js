@@ -15,6 +15,15 @@ class TurmaService {
   async criar(turma) {
     return this.http.create(this.http.path, turma, false);
   }
+  async matricular(formData) {
+    return this.http.create(`api/matriculas`, formData, true);
+  }
+
+  async simular(dia, desconto, idMatricula) {
+    return this.http.read(
+      `api/carnes/parcelas/simulacao?dia=${dia}&desconto=${desconto}&idMatricula=${idMatricula}`
+    );
+  }
 
   async uploadFoto(id, formData) {
     return this.http.create(

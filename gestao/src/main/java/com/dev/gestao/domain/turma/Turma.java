@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -36,7 +37,7 @@ public class Turma {
     private int ano;
     private String descricao;
     private Integer vagasDisponiveis;
-
+    private BigDecimal valorBase;
 
     @OneToOne
     @JoinColumn

@@ -11,6 +11,8 @@
                 type="radio"
                 id="customRadio1"
                 name="customRadio"
+                v-model="dia"
+                value="5"
               />
               <label for="customRadio1" class="custom-control-label"
                 >Todo dia 5</label
@@ -22,7 +24,8 @@
                 type="radio"
                 id="customRadio2"
                 name="customRadio"
-                checked
+                v-model="dia"
+                value="10"
               />
               <label for="customRadio2" class="custom-control-label"
                 >Todo dia 10</label
@@ -34,6 +37,8 @@
                 type="radio"
                 id="customRadio3"
                 name="customRadio"
+                v-model="dia"
+                value="15"
               />
               <label for="customRadio3" class="custom-control-label"
                 >Todo dia 15</label
@@ -50,9 +55,15 @@
               @input="validarInput"
             />
           </div>
-          <button class="btn btn-warning mb-2">Simular parcelas</button>
+          <button
+            @click.prevent="simular"
+            type="button"
+            class="btn btn-warning mb-2"
+          >
+            Simular parcelas
+          </button>
         </div>
-        <div class="col-lg-9">
+        <div v-if="parcelas.length > 0" class="col-lg-9">
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">Resumo do carnê</h3>
@@ -72,89 +83,16 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>100</td>
-                    <td>10/02/2023</td>
-                    <td>Emitida</td>
-                    <td>Agosto</td>
-                    <td>R$ 450,50</td>
-                  </tr>
-                  <tr>
-                    <td>100</td>
-                    <td>10/02/2023</td>
-                    <td>Emitida</td>
-                    <td>Agosto</td>
-                    <td>R$ 450,50</td>
-                  </tr>
-                  <tr>
-                    <td>100</td>
-                    <td>10/02/2023</td>
-                    <td>Emitida</td>
-                    <td>Agosto</td>
-                    <td>R$ 450,50</td>
-                  </tr>
-                  <tr>
-                    <td>100</td>
-                    <td>10/02/2023</td>
-                    <td>Emitida</td>
-                    <td>Agosto</td>
-                    <td>R$ 450,50</td>
-                  </tr>
-                  <tr>
-                    <td>100</td>
-                    <td>10/02/2023</td>
-                    <td>Emitida</td>
-                    <td>Agosto</td>
-                    <td>R$ 450,50</td>
-                  </tr>
-                  <tr>
-                    <td>100</td>
-                    <td>10/02/2023</td>
-                    <td>Emitida</td>
-                    <td>Agosto</td>
-                    <td>R$ 450,50</td>
-                  </tr>
-                  <tr>
-                    <td>100</td>
-                    <td>10/02/2023</td>
-                    <td>Emitida</td>
-                    <td>Agosto</td>
-                    <td>R$ 450,50</td>
-                  </tr>
-                  <tr>
-                    <td>100</td>
-                    <td>10/02/2023</td>
-                    <td>Emitida</td>
-                    <td>Agosto</td>
-                    <td>R$ 450,50</td>
-                  </tr>
-                  <tr>
-                    <td>100</td>
-                    <td>10/02/2023</td>
-                    <td>Emitida</td>
-                    <td>Agosto</td>
-                    <td>R$ 450,50</td>
-                  </tr>
-                  <tr>
-                    <td>100</td>
-                    <td>10/02/2023</td>
-                    <td>Emitida</td>
-                    <td>Agosto</td>
-                    <td>R$ 450,50</td>
-                  </tr>
-                  <tr>
-                    <td>100</td>
-                    <td>10/02/2023</td>
-                    <td>Emitida</td>
-                    <td>Agosto</td>
-                    <td>R$ 450,50</td>
-                  </tr>
-                  <tr>
-                    <td>100</td>
-                    <td>10/02/2023</td>
-                    <td>Emitida</td>
-                    <td>Agosto</td>
-                    <td>R$ 450,50</td>
+                  <tr v-for="(p, i) in parcelas">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ p.dataVencimento }}</td>
+                    <td>{{ p.statusParcela }}</td>
+                    <td>
+                      {{
+                        mesesEmPortugues[new Date(p.dataVencimento).getMonth()]
+                      }}
+                    </td>
+                    <td>R$ {{ p.valor }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -183,43 +121,47 @@
   </form>
 </template>
 <script>
+import TurmaService from "@/services/TurmaService";
+
 export default {
   name: "FormFinanceiroAluno",
+  props: {
+    idMatricula: { type: Number, default: 100 },
+  },
   data() {
     return {
+      mesesEmPortugues: [
+        "Janeiro",
+        "Fevereiro",
+        "Março",
+        "Abril",
+        "Maio",
+        "Junho",
+        "Julho",
+        "Agosto",
+        "Setembro",
+        "Outubro",
+        "Novembro",
+        "Dezembro",
+      ],
       desconto: 0.0,
-      aluno: {
-        nome: null,
-        cpf: null,
-        dataNascimento: null,
-        telefone: null,
-        email: null,
-        uf: "MA",
-        criarAcesso: true,
-        nomeResponsavel: null,
-        cpfResponsavel: null,
-      },
-      foto: null,
-      previewImage: null,
+      dia: 5,
+      parcelas: [],
     };
   },
 
   methods: {
+    simular() {
+      new TurmaService()
+        .simular(this.dia, this.desconto, this.idMatricula)
+        .then((r) => {
+          this.parcelas = r;
+        });
+    },
     validarInput() {
       this.desconto = this.desconto.replace(/[^0-9.]/g, "");
       if (this.desconto > 50) {
         this.desconto = 50.0;
-      }
-    },
-    uploadImage(e) {
-      const image = e.target.files[0];
-      const reader = new FileReader();
-      if (image && image.type.match("image.*")) {
-        reader.readAsDataURL(image);
-        this.foto = image;
-        reader.onload = (e) => {
-          this.previewImage = e.target.result;
-        };
       }
     },
     async matricular() {

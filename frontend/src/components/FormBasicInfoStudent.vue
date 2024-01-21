@@ -173,6 +173,8 @@
   </form>
 </template>
 <script>
+import AlunoService from "@/services/AlunoService";
+
 export default {
   data() {
     return {
@@ -218,6 +220,7 @@ export default {
             icon: "success",
             title: "Aluno cadastrado com sucesso: " + r,
           });
+          this.$emit("alunoCriado", r);
           this.$store.commit("toggleLoading", false);
         })
         .catch((e) => {
@@ -225,11 +228,11 @@ export default {
           console.log(e);
         })
         .finally(() => {
-          this.listar();
           this.$store.commit("toggleLoading", false);
         });
     },
   },
+  emits: ["alunoCriado"],
 };
 </script>
 <style></style>
