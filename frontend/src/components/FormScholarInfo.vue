@@ -27,6 +27,7 @@
               <option value="null">Selecione</option>
               <option v-for="s in turmas" :value="s.id">
                 {{ s.descricao }}
+                (vagas: {{ s.vagasDisponiveis }}, preço R$ : {{ s.valorBase }})
               </option>
             </select>
           </div>

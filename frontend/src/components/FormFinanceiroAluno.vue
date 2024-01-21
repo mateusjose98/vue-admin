@@ -107,7 +107,11 @@
               id="exampleCheck1"
             />
             <label class="form-check-label" for="exampleCheck1"
-              >Criar acesso ao sistema para o aluno</label
+              >Criar acesso ao sistema para o aluno
+              <span class="small"
+                >(Obs.: Um email será enviado para o aluno com as instruções
+                para login)</span
+              ></label
             >
           </div>
         </div>
