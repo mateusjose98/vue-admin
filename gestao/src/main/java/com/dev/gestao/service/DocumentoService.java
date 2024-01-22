@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -18,6 +20,8 @@ public class DocumentoService {
 
     @Transactional(readOnly = false)
     public Documento create(MultipartFile arquivo, TipoDocumento tipoDoc, Aluno aluno) {
+       Objects.requireNonNull(arquivo);
+        Objects.requireNonNull(tipoDoc);
         String link = storageService.uploadFile(arquivo);
         String nomeOriginal = arquivo.getOriginalFilename();
         String nomeDoArquivoSemExtensao = nomeOriginal.substring(0, nomeOriginal.lastIndexOf('.'));
