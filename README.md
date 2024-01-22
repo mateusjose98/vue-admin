@@ -6,6 +6,10 @@
 ![Alt text](imgs/aluno-2.png)
 ![Alt text](imgs/aluno-3.png)
 
+### Tela de configuração do ano letivo
+
+![Alt text](image.png)
+
 ### Tela de login
 
 ![](imgs/login.png)

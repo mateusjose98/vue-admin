@@ -50,7 +50,7 @@
           data-accordion="false"
         >
           <NavItem icon="fas fa-home" link="/">Home</NavItem>
-          <NavItem icon="fas fa-info-circle" link="/sobre">Sobre</NavItem>
+          <NavItem icon="fas fa-info-circle" link="/sobre">Ano letivo</NavItem>
           <NavItem icon="fas fa-home" link="/outro">Alguma coisa</NavItem>
           <NavItemTree
             :links="[
