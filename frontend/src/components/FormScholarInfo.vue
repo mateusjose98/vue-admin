@@ -100,7 +100,6 @@ export default {
       this.matricula.turmaId = null;
       new TurmaService().buscarTurmasPorSerie(e.target.value).then((r) => {
         this.turmas = r;
-        console.log(r);
       });
     },
     uploadImage(e) {

@@ -16,6 +16,8 @@
 
 ### Requisitos (atualmente)
 
+- O sistema permite a criação de salas, series, disciplinas e turmas;
+- Salas(nome), Series(nome), Disciplinas(nome), Turma(ano, descricao, vagas, sala, serie, valor base);
 - O novo aluno tem as informações: data_nascimento, uf, usuario_id, date_created, last_updated, cpf, email, foto, matricula, nome, telefone
 - O aluno precisa ter um responsável.
 - O responsável tem as informações: cpf, telefone, nome
