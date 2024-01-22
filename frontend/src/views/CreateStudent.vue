@@ -20,7 +20,7 @@
               <a
                 href="#"
                 @click="step = 2"
-                :class="{ active: step === 2 }"
+                :class="{ active: step === 2, disabled: !idAluno }"
                 class="nav-link"
               >
                 <i class="fas fa-user-graduate"></i> Matrícula
@@ -28,9 +28,10 @@
             </li>
             <li class="nav-item">
               <a
+                disabled="true"
                 href="#"
                 @click="step = 3"
-                :class="{ active: step === 3 }"
+                :class="{ active: step === 3, disabled: !idMatricula }"
                 class="nav-link"
               >
                 <i class="far fa-money-bill-alt"></i> Financeiro
@@ -56,7 +57,12 @@
       <div v-show="step === 1" class="col-sm-12 col-md-10">
         <DefaultCard titulo="Cadastro">
           <FormBasicInfoStudent
-            @alunoCriado="(id) => (idAluno = id)"
+            @alunoCriado="
+              (id) => {
+                this.idAluno = id;
+                step = 2;
+              }
+            "
             :aluno="{}"
           />
         </DefaultCard>
@@ -64,7 +70,12 @@
       <div v-show="step === 2" class="col-sm-12 col-md-10">
         <DefaultCard titulo="Dados Escolares e documentação">
           <FormScholarInfo
-            @matriculaRealizada="(id) => (idMatricula = id)"
+            @matriculaRealizada="
+              (id) => {
+                this.idMatricula = id;
+                step = 3;
+              }
+            "
             :idAluno="idAluno"
           />
         </DefaultCard>

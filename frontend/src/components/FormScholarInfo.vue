@@ -63,7 +63,9 @@
     <!-- /.card-body -->
 
     <div class="card-footer">
-      <button type="submit" class="btn btn-default">Salvar</button>
+      <button type="submit" class="btn btn-primary">
+        Próximo <i class="fa fa-arrow-right" aria-hidden="true"></i>
+      </button>
     </div>
   </form>
 </template>
@@ -86,9 +88,12 @@ export default {
     };
   },
   created() {
-    new TurmaService().buscarSeries().then((r) => {
-      this.series = r;
-    });
+    new TurmaService()
+      .buscarSeries()
+      .then((r) => {
+        this.series = r;
+      })
+      .catch((e) => null);
   },
   methods: {
     onChangeSerie(e) {
@@ -105,8 +110,14 @@ export default {
     },
     async matricular() {
       const form = new FormData();
-      form.append("identificacaoAluno", this.arquivos.identificacaoAluno);
-      form.append("declaracao", this.arquivos.declaracao);
+      if (this.arquivos.identificacaoAluno) {
+        form.append("identificacaoAluno", this.arquivos.identificacaoAluno);
+      }
+
+      if (this.arquivos.declaracao) {
+        form.append("declaracao", this.arquivos.declaracao);
+      }
+
       form.append("alunoId", this.idAluno);
       form.append("turmaId", this.matricula.turmaId);
       this.$store.commit("toggleLoading", true);
