@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import AboutView from "../views/AboutView.vue";
+import ConfigAnoLetivoView from "../views/ConfigAnoLetivoView.vue";
 import LoginView from "../views/LoginView.vue";
 import MainLayout from "../layout/MainLayout.vue";
 import SearchStudent from "../views/SearchStudent.vue";
@@ -15,8 +15,8 @@ const routes = [
         component: HomeView,
       },
       {
-        path: "sobre",
-        component: AboutView,
+        path: "config",
+        component: ConfigAnoLetivoView,
       },
       {
         path: "pesquisa-aluno",

@@ -1,15 +1,13 @@
 package com.dev.gestao.service;
 
-import com.dev.gestao.domain.enums.TipoEmailEvento;
 import com.dev.gestao.domain.usuario.Acesso;
 import com.dev.gestao.domain.usuario.Usuario;
 import com.dev.gestao.domain.usuario.UsuarioDTO;
-
-import com.dev.gestao.repos.AcessoRepository;
-import com.dev.gestao.repos.UsuarioRepository;
+import com.dev.gestao.repository.AcessoRepository;
+import com.dev.gestao.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,9 +18,10 @@ import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
-@Log4j2
+@Slf4j
 public class UsuarioService {
 
+    
     final UsuarioRepository usuarioRepository;
     final PasswordEncoder passwordEncoder;
     final AcessoRepository acessoRepository;

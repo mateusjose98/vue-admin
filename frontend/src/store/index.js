@@ -10,9 +10,17 @@ export default createStore({
       name: "José Mateus",
     },
     isLoading: false,
+    openModal: false,
   },
   getters: {},
   mutations: {
+    openModal(state, payload) {
+      if (payload) {
+        state.openModal = payload;
+      } else {
+        state.openModal = false;
+      }
+    },
     toggleLoading(state, payload) {
       if (payload) {
         state.isLoading = payload;

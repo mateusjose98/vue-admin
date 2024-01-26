@@ -2,10 +2,8 @@ package com.dev.gestao.service;
 
 import com.dev.gestao.domain.aluno.Aluno;
 import com.dev.gestao.domain.aluno.AlunoDTO;
-import com.dev.gestao.domain.aluno.Responsavel;
-import com.dev.gestao.domain.enums.TipoEmailEvento;
 import com.dev.gestao.domain.usuario.Usuario;
-import com.dev.gestao.repos.AlunoRepository;
+import com.dev.gestao.repository.AlunoRepository;
 import com.dev.gestao.util.exceptions.NotFoundException;
 
 import java.time.LocalDate;

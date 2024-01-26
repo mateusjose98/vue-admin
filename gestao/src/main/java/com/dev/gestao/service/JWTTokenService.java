@@ -9,8 +9,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.dev.gestao.domain.usuario.Acesso;
 import com.dev.gestao.domain.usuario.Usuario;
 import com.dev.gestao.util.DateUtils;
-
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +20,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-@Log4j2
+@Slf4j
 public class JWTTokenService {
 
     @Value(

@@ -5,9 +5,31 @@ class TurmaService {
     this.http = new HttpClient();
   }
 
-  async buscarSeries() {
-    return this.http.read("api/turmas/series");
+  async buscarTodasTurmas() {
+    return this.http.read(`api/turmas`);
   }
+  async buscarSeries() {
+    return this.http.read("api/series");
+  }
+  async criarSerie(serie) {
+    return this.http.create(`api/series`, serie, false);
+  }
+  async buscarSalas() {
+    return this.http.read("api/salas");
+  }
+
+  async criarSala(sala) {
+    return this.http.create(`api/salas`, sala, false);
+  }
+
+  async buscarDisciplinas() {
+    return this.http.read("api/disciplinas");
+  }
+
+  async criarDisciplina(disciplina) {
+    return this.http.create(`api/disciplinas`, disciplina, false);
+  }
+
   async buscarTurmasPorSerie(idSerie) {
     return this.http.read(`api/turmas/series/${idSerie}`);
   }

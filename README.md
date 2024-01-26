@@ -8,7 +8,7 @@
 
 ### Tela de configuração do ano letivo
 
-![Alt text](image.png)
+![Alt text](image-1.png)
 
 ### Tela de login
 

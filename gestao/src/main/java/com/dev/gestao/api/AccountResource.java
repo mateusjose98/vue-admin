@@ -1,7 +1,6 @@
 package com.dev.gestao.api;
 
 
-
 import com.dev.gestao.domain.usuario.Usuario;
 import com.dev.gestao.service.JWTTokenService;
 import com.dev.gestao.service.UsuarioService;
@@ -10,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -28,7 +27,7 @@ import java.util.List;
 @RestController
 @RequestMapping("auth")
 @RequiredArgsConstructor
-@Log4j2
+@Slf4j
 public class AccountResource {
 
     final JWTTokenService jwtTokenService;

@@ -21,7 +21,6 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
 
-
     final JWTTokenService jwtTokenService;
     final UsuarioService usuarioService;
 
@@ -38,8 +37,6 @@ public class JwtFilter extends OncePerRequestFilter {
             var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
-
-
 
         filterChain.doFilter(request, response);
 

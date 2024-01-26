@@ -1,16 +1,16 @@
 package com.dev.gestao.service;
 
 
-import com.dev.gestao.repos.UsuarioRepository;
+import com.dev.gestao.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-@Log4j2
+@Slf4j
 @RequiredArgsConstructor
 public class AuthService implements UserDetailsService {
 

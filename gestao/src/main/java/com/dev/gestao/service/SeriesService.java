@@ -1,7 +1,8 @@
 package com.dev.gestao.service;
 
 import com.dev.gestao.domain.serie.Serie;
-import com.dev.gestao.repos.SeriesRepository;
+import com.dev.gestao.repository.SeriesRepository;
+import com.dev.gestao.util.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,5 +21,9 @@ public class SeriesService {
 
     public Serie getRefById(Integer idSerie) {
         return seriesRepository.getReferenceById(idSerie);
+    }
+
+    public Serie findById(Integer id) {
+        return seriesRepository.findById(id).orElseThrow(NotFoundException::new);
     }
 }

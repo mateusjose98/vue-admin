@@ -3,7 +3,7 @@ package com.dev.gestao.service;
 import com.dev.gestao.domain.aluno.Aluno;
 import com.dev.gestao.domain.aluno.Documento;
 import com.dev.gestao.domain.aluno.TipoDocumento;
-import com.dev.gestao.repos.DocumentoRepository;
+import com.dev.gestao.repository.DocumentoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,8 +1,5 @@
 package com.dev.gestao.domain.turma;
 
-import com.dev.gestao.domain.aluno.Aluno;
-import com.dev.gestao.domain.disciplina.Disciplina;
-import com.dev.gestao.domain.professor.Professor;
 import com.dev.gestao.domain.sala.Sala;
 import com.dev.gestao.domain.serie.Serie;
 import jakarta.persistence.*;
@@ -11,8 +8,6 @@ import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "Turmas")
@@ -46,6 +41,7 @@ public class Turma {
     @OneToOne
     @JoinColumn
     private Serie serie;
+    private boolean ativo;
 
 
 

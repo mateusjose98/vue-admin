@@ -1,4 +1,4 @@
-package com.dev.gestao.repos;
+package com.dev.gestao.repository;
 
 import com.dev.gestao.domain.serie.Serie;
 import org.springframework.data.jpa.repository.JpaRepository;

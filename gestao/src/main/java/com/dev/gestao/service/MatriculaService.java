@@ -5,7 +5,7 @@ import com.dev.gestao.domain.aluno.TipoDocumento;
 import com.dev.gestao.domain.matricula.Matricula;
 import com.dev.gestao.domain.matricula.MatriculaCriacaoDTO;
 import com.dev.gestao.domain.turma.Turma;
-import com.dev.gestao.repos.MatriculaRepository;
+import com.dev.gestao.repository.MatriculaRepository;
 import com.dev.gestao.util.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

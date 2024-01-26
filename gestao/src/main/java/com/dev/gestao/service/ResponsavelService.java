@@ -2,7 +2,7 @@ package com.dev.gestao.service;
 
 import com.dev.gestao.domain.aluno.Aluno;
 import com.dev.gestao.domain.aluno.Responsavel;
-import com.dev.gestao.repos.ResponsavelRepository;
+import com.dev.gestao.repository.ResponsavelRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
