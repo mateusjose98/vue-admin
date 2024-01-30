@@ -4,10 +4,7 @@ import com.dev.gestao.domain.sala.Sala;
 import com.dev.gestao.service.SalaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,6 +24,12 @@ public class SalaResource {
     @GetMapping("{id}")
     public ResponseEntity<?> getSala(@PathVariable Integer id) {
         Sala body = salasService.findById(id);
+        return ResponseEntity.ok(body);
+    }
+
+    @PostMapping
+    public ResponseEntity<?> salvar(@RequestBody Sala sala) {
+        Sala body = salasService.save(sala);
         return ResponseEntity.ok(body);
     }
 

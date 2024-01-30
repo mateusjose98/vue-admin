@@ -6,10 +6,16 @@
   <content>
     <div class="row">
       <div class="col-sm-12 col-md-6">
-        <SalasComponent :salas="salas"></SalasComponent>
+        <SalasComponent
+          @salaCriada="populaListas"
+          :salas="salas"
+        ></SalasComponent>
       </div>
       <div class="col-sm-12 col-md-6">
-        <SeriesComponent :series="series"></SeriesComponent>
+        <SeriesComponent
+          @serieCriada="populaListas"
+          :series="series"
+        ></SeriesComponent>
       </div>
 
       <div class="col-sm-12 col-md-6">
@@ -37,25 +43,27 @@ export default {
     };
   },
   async created() {
-    const service = new TurmaService();
-    const promiseSala = await service.buscarSalas();
-    const promiseDisciplinas = await service.buscarDisciplinas();
-    const promiseSeries = await service.buscarSeries();
-    const promiseTurmas = await service.buscarTodasTurmas();
-    Promise.all([
-      promiseSala,
-      promiseDisciplinas,
-      promiseSeries,
-      promiseTurmas,
-    ]).then((values) => {
-      this.salas = values[0];
-      this.disciplinas = values[1];
-      this.series = values[2];
-      this.turmas = values[3];
-    });
+    this.populaListas();
   },
   methods: {
-    name: "ConfigAnoLetivoView",
+    async populaListas() {
+      const service = new TurmaService();
+      const promiseSala = await service.buscarSalas();
+      const promiseDisciplinas = await service.buscarDisciplinas();
+      const promiseSeries = await service.buscarSeries();
+      const promiseTurmas = await service.buscarTodasTurmas();
+      Promise.all([
+        promiseSala,
+        promiseDisciplinas,
+        promiseSeries,
+        promiseTurmas,
+      ]).then((values) => {
+        this.salas = values[0];
+        this.disciplinas = values[1];
+        this.series = values[2];
+        this.turmas = values[3];
+      });
+    },
 
     desativarTurma(id) {
       // Implemente a lógica para desativar a turma com o ID fornecido

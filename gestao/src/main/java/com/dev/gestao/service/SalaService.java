@@ -4,6 +4,7 @@ import com.dev.gestao.domain.sala.Sala;
 import com.dev.gestao.repository.SalaRepository;
 import com.dev.gestao.util.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +18,7 @@ public class SalaService {
     final SalaRepository salaRepository;
 
     public List<Sala> findAll() {
-        return salaRepository.findAll();
+        return salaRepository.findAll(Sort.by("id").descending());
     }
 
     public Sala getRefById(Integer idSerie) {
@@ -26,5 +27,10 @@ public class SalaService {
 
     public Sala findById(Integer id) {
         return salaRepository.findById(id).orElseThrow(NotFoundException::new);
+    }
+
+    @Transactional
+    public Sala save(Sala sala) {
+        return salaRepository.save(sala);
     }
 }

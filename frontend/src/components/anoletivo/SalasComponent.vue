@@ -17,6 +17,7 @@
               <th>Nome</th>
               <th>Recursos</th>
               <th>Capacidade física</th>
+              <th>Ações</th>
             </tr>
           </thead>
 
@@ -26,22 +27,26 @@
               <td>{{ p.nome }}</td>
 
               <td>
-                <span class="badge badge badge-primary m-1"
-                  >Ar condicionado</span
-                >
-                <span class="badge badge badge-primary m-1">Kit Projetor</span>
-                <span class="badge badge badge-primary m-1"
-                  >Quadro digital</span
+                <span
+                  v-for="(r, i) in p.recursos"
+                  :key="i"
+                  class="badge badge badge-primary m-1"
+                  >{{ r }}</span
                 >
               </td>
               <td>{{ p.capacidade }} pessoas</td>
+              <td>
+                <button class="btn btn-primary btn-sm" @click="editarSala(p)">
+                  <i class="fa fa-edit"></i>
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
-    <Modal labelSuccess="Salvar" titulo="Nova sala">
-      <form>
+    <Modal id="salas" labelSuccess="Salvar" titulo="Nova sala">
+      <form @submit.prevent="salvarSala">
         <div class="row">
           <div class="col-sm-12">
             <div class="form-group">
@@ -51,31 +56,48 @@
                 class="form-control"
                 id="nome"
                 placeholder="Digite o nome ..."
+                v-model="sala.nome"
               />
             </div>
           </div>
+
           <div class="col-sm-12">
             <div class="form-group">
-              <label for="cpf">Recursos</label>
-              <div class="custom-control custom-checkbox">
+              <div class="form-check">
                 <input
-                  class="custom-control-input"
+                  class="form-check-input"
                   type="checkbox"
-                  id="customCheckbox2"
+                  value="Ar Condicionado"
+                  id="defaultCheck1"
+                  v-model="sala.recursos"
                 />
-                <label for="customCheckbox2" class="custom-control-label"
-                  >Ar condicionado</label
-                >
+                <label class="form-check-label" for="defaultCheck1">
+                  Ar condicionado
+                </label>
               </div>
-              <div class="custom-control custom-checkbox">
+              <div class="form-check">
                 <input
-                  class="custom-control-input"
+                  class="form-check-input"
                   type="checkbox"
-                  id="customCheckbox4"
+                  value="Wifi"
+                  id="defaultCheck2"
+                  v-model="sala.recursos"
                 />
-                <label for="customCheckbox4" class="custom-control-label"
-                  >Wifi</label
-                >
+                <label class="form-check-label" for="defaultCheck2">
+                  Wifi
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Quadro digital"
+                  id="defaultCheck3"
+                  v-model="sala.recursos"
+                />
+                <label class="form-check-label" for="defaultCheck3">
+                  Quadro digital
+                </label>
               </div>
             </div>
           </div>
@@ -89,13 +111,20 @@
                 ></label
               >
               <input
+                v-model="sala.capacidade"
                 type="text"
                 class="form-control"
-                id="cpf"
+                id="capacidade"
                 placeholder="Digite apenas os números"
               />
             </div>
           </div>
+        </div>
+        <div class="d-flex justify-content-between">
+          <button type="submit" class="btn btn-primary">Salvar</button>
+          <button type="button" class="btn btn-default" @click="fecharModal">
+            Fechar
+          </button>
         </div>
       </form>
     </Modal>
@@ -103,7 +132,17 @@
 </template>
 <script>
 import Modal from "../Modal.vue";
+import TurmaService from "@/services/TurmaService";
 export default {
+  data() {
+    return {
+      sala: {
+        nome: null,
+        capacidade: null,
+        recursos: [],
+      },
+    };
+  },
   props: {
     salas: Array,
   },
@@ -111,8 +150,40 @@ export default {
     Modal,
   },
   methods: {
-    abrirModal() {
+    editarSala(sala) {
+      this.sala = sala;
       this.$store.commit("openModal", true);
+    },
+    salvarSala() {
+      this.$store.commit("toggleLoading", true);
+      new TurmaService()
+        .criarSala(this.sala)
+        .then((r) => {
+          this.$emit("salaCriada", r);
+          Toast.fire({
+            icon: "success",
+            title: "Sala criada com sucesso!",
+          });
+        })
+        .finally(() => {
+          this.fecharModal();
+          this.limparForm();
+          this.$store.commit("toggleLoading", false);
+        });
+    },
+    abrirModal() {
+      this.$store.commit("openModal", { openModal: true, id: "salas" });
+    },
+    fecharModal() {
+      this.limparForm();
+      this.$store.commit("openModal", { openModal: false, id: "salas" });
+    },
+    limparForm() {
+      this.sala = {
+        nome: null,
+        capacidade: null,
+        recursos: [],
+      };
     },
   },
 };

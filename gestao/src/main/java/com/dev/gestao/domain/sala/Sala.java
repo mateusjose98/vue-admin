@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.util.List;
+
 @Entity
 @Table(name = "Salas")
 @EntityListeners(AuditingEntityListener.class)
@@ -29,4 +31,6 @@ public class Sala {
     @Column(nullable = false)
     private String nome;
     private Integer capacidade;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> recursos;
 }

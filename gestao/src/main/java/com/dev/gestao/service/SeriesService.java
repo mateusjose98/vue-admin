@@ -26,4 +26,8 @@ public class SeriesService {
     public Serie findById(Integer id) {
         return seriesRepository.findById(id).orElseThrow(NotFoundException::new);
     }
+    @Transactional
+    public Serie save(Serie serie) {
+        return seriesRepository.save(serie);
+    }
 }

@@ -1,7 +1,10 @@
 <template>
   <div>
     <div
-      v-if="this.$store.state.openModal"
+      v-if="
+        this.$store.state.modal.openModal &&
+        this.id === this.$store.state.modal.id
+      "
       class="modal fade show"
       id="modal-lg"
       style="display: block"
@@ -22,30 +25,16 @@
           <div class="modal-body">
             <slot></slot>
           </div>
-          <div class="modal-footer justify-content-between">
-            <button
-              type="button"
-              class="btn btn-default"
-              data-dismiss="modal"
-              @click="closeModal"
-            >
-              Close
-            </button>
-            <button
-              type="button"
-              class="btn btn-primary"
-              @click="callbackSuccess"
-            >
-              {{ labelSuccess }}
-            </button>
-          </div>
         </div>
         <!-- /.modal-content -->
       </div>
       <!-- /.modal-dialog -->
     </div>
     <div
-      v-if="this.$store.state.openModal"
+      v-if="
+        this.$store.state.modal.openModal &&
+        this.id === this.$store.state.modal.id
+      "
       class="modal-backdrop fade show"
     ></div>
   </div>
@@ -57,11 +46,15 @@ export default {
     objeto: Object,
     titulo: String,
     labelSuccess: String,
+    id: String,
   },
   data() {},
   methods: {
     closeModal() {
-      this.$store.commit("openModal", false);
+      this.$store.commit("openModal", {
+        openModal: false,
+        id: this.id,
+      });
     },
   },
 };
