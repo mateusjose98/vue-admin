@@ -27,4 +27,9 @@ public class DisciplinaService {
     public Disciplina findById(Integer id) {
         return displinaRepository.findById(id).orElseThrow(NotFoundException::new);
     }
+
+    @Transactional
+    public Disciplina save(Disciplina disciplina) {
+        return displinaRepository.save(disciplina);
+    }
 }

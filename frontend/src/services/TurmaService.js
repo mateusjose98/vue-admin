@@ -35,7 +35,7 @@ class TurmaService {
   }
 
   async criar(turma) {
-    return this.http.create(this.http.path, turma, false);
+    return this.http.create(`api/turmas`, turma, false);
   }
   async matricular(formData) {
     return this.http.create(`api/matriculas`, formData, true);

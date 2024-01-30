@@ -4,10 +4,7 @@ import com.dev.gestao.domain.disciplina.Disciplina;
 import com.dev.gestao.service.DisciplinaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,6 +24,12 @@ public class DisciplinaResource {
     @GetMapping("{id}")
     public ResponseEntity<?> getSeries(@PathVariable Integer id) {
         Disciplina body = disciplinasService.findById(id);
+        return ResponseEntity.ok(body);
+    }
+
+    @PostMapping
+    public ResponseEntity<?> salvar(@RequestBody Disciplina disciplina) {
+        Disciplina body = disciplinasService.save(disciplina);
         return ResponseEntity.ok(body);
     }
 

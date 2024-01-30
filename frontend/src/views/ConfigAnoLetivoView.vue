@@ -19,10 +19,18 @@
       </div>
 
       <div class="col-sm-12 col-md-6">
-        <DisciplinasComponent :disciplinas="disciplinas"></DisciplinasComponent>
+        <DisciplinasComponent
+          @disciplinaSalva="populaListas"
+          :disciplinas="disciplinas"
+        ></DisciplinasComponent>
       </div>
       <div class="col-sm-12 col-md-6">
-        <TurmasComponent :turmas="turmas"></TurmasComponent>
+        <TurmasComponent
+          @turmaSalva="populaListas"
+          :turmas="turmas"
+          :salas="salas"
+          :series="series"
+        ></TurmasComponent>
       </div>
     </div>
   </content>
@@ -40,6 +48,7 @@ export default {
       disciplinas: [],
       series: [],
       salas: [],
+      turmas: [],
     };
   },
   async created() {

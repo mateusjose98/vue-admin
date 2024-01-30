@@ -30,8 +30,11 @@
               <td>{{ p.descricao }}</td>
               <td>{{ p.ano }}</td>
               <td>{{ p.vagasDisponiveis }}</td>
-              <td>{{ p.sala.nome }} {{ p.sala.capacidade }}</td>
-              <td>{{ p.serie.nome }}</td>
+              <td>
+                {{ p.sala ? p.sala.nome : "" }}
+                {{ p.sala ? p.sala.capacidade : "" }}
+              </td>
+              <td>{{ p.serie ? p.serie.nome : "" }}</td>
               <td>R$ {{ p.valorBase }}</td>
               <td>
                 <button
@@ -53,8 +56,8 @@
       </div>
     </div>
     <div class="card-footer"></div>
-    <!-- <Modal labelSuccess="Salvar" titulo="Nova turma">
-      <form>
+    <Modal id="turmas" labelSuccess="Salvar" titulo="Nova disciplina">
+      <form @submit.prevent="salvarTurma">
         <div class="row">
           <div class="col-sm-12">
             <div class="form-group">
@@ -64,6 +67,7 @@
                 class="form-control"
                 id="nome"
                 placeholder="Nome completo ..."
+                v-model="turma.descricao"
               />
             </div>
           </div>
@@ -75,16 +79,22 @@
                 class="form-control"
                 id="cpf"
                 placeholder="Digite apenas os números"
-                :value="new Date().getFullYear()"
+                v-model="turma.ano"
               />
             </div>
           </div>
           <div class="col-sm-12">
             <div class="form-group">
               <label for="exampleFormControlSelect1">Sala</label>
-              <select class="form-control" id="exampleFormControlSelect1">
-                <option value="AC">Acre</option>
-                <option value="AL">Alagoas</option>
+              <select
+                v-model="turma.sala"
+                class="form-control"
+                id="exampleFormControlSelect1"
+              >
+                <option value="">Selecione</option>
+                <option v-for="sala in salas" :value="sala">
+                  {{ sala.nome }}
+                </option>
               </select>
             </div>
           </div>
@@ -99,29 +109,91 @@
               <input
                 type="text"
                 class="form-control"
-                id="cpf"
+                id="vagas"
+                v-model="turma.vagasDisponiveis"
                 placeholder="Digite apenas os números"
               />
             </div>
           </div>
           <div class="col-sm-12">
             <div class="form-group">
-              <label for="exampleFormControlSelect1">Série</label>
-              <select class="form-control" id="exampleFormControlSelect1">
-                <option value="AC">Acre</option>
-                <option value="AL">Alagoas</option>
+              <label for="series">Série</label>
+              <select v-model="turma.serie" class="form-control" id="series">
+                <option value="">Selecione</option>
+                <option v-for="serie in series" :value="serie">
+                  {{ serie.nome }}
+                </option>
               </select>
             </div>
           </div>
         </div>
+        <div class="d-flex justify-content-between">
+          <button type="submit" class="btn btn-primary">Salvar</button>
+          <button type="button" class="btn btn-default" @click="fecharModal">
+            Fechar
+          </button>
+        </div>
       </form>
-    </Modal> -->
+    </Modal>
   </div>
 </template>
 <script>
+import TurmaService from "@/services/TurmaService";
+import Modal from "@/components/Modal.vue";
 export default {
   props: {
     turmas: Array,
+    salas: Array,
+    series: Array,
+  },
+  data() {
+    return {
+      turma: {
+        descricao: null,
+        ano: new Date().getFullYear(),
+        vagasDisponiveis: null,
+        sala: null,
+        serie: null,
+        valorBase: null,
+        id: null,
+      },
+    };
+  },
+  components: {
+    Modal,
+  },
+  methods: {
+    async salvarTurma() {
+      const service = new TurmaService();
+      console.log(this.turma);
+      await service.criar(this.turma);
+      this.fecharModal();
+      this.$emit("turmaSalva");
+    },
+    async desativarTurma(id) {
+      const service = new TurmaService();
+      await service.desativarTurma(id);
+      this.$emit("turmaSalva");
+    },
+
+    abrirModal() {
+      this.$store.commit("openModal", { openModal: true, id: "turmas" });
+    },
+    fecharModal() {
+      this.limparForm();
+      this.$store.commit("openModal", { openModal: false, id: "turmas" });
+    },
+    limparForm() {
+      this.turma = {
+        descricao: null,
+        ano: null,
+        vagasDisponiveis: null,
+        sala: null,
+        serie: null,
+        valorBase: null,
+        id: null,
+      };
+    },
   },
 };
 </script>
