@@ -5,9 +5,11 @@ import com.dev.gestao.domain.usuario.Usuario;
 import com.dev.gestao.domain.usuario.UsuarioDTO;
 import com.dev.gestao.repository.AcessoRepository;
 import com.dev.gestao.repository.UsuarioRepository;
+import com.dev.gestao.service.eventos.UsuarioCriadoEvent;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,7 +27,7 @@ public class UsuarioService {
     final UsuarioRepository usuarioRepository;
     final PasswordEncoder passwordEncoder;
     final AcessoRepository acessoRepository;
-    final NotificacaoService notificacaoService;
+    final ApplicationEventPublisher publisher;
 
     public Usuario findByLogin(String login) {
         return usuarioRepository.findByLogin(login)
@@ -56,19 +58,18 @@ public class UsuarioService {
         HashSet<Acesso> acessos = new HashSet<>(acessoRepository.findAllById(acessosIds));
         usuario.setAcessos(acessos);
         usuario = usuarioRepository.save(usuario);
+        publisher.publishEvent(new UsuarioCriadoEvent(this, usuario));
         return new UsuarioDTO(usuario);
     }
-    public Usuario criar(Usuario usuario, String descricaoAcesso) {
-        Set<Acesso> acesso = Set.of(acessoRepository.findByDescricao(descricaoAcesso));
+
+    public Usuario criaraPartirDasCredenciais(String login, String rawPasword, String acessoDefault) {
+        String encoded = passwordEncoder.encode(rawPasword);
+        Usuario usuario = Usuario.fromCredentials(login, encoded);
+        Set<Acesso> acesso = Set.of(acessoRepository.findByDescricao(acessoDefault));
         usuario.setAcessos(acesso);
         usuario = usuarioRepository.save(usuario);
+        publisher.publishEvent(new UsuarioCriadoEvent(this, usuario));
         return usuario;
-    }
-    public Usuario criaraPartirDasCredenciais(String username, String rawPasword) {
-        String encoded = passwordEncoder.encode(rawPasword);
-        Usuario usuario = Usuario.fromCredentials(username, encoded);
-        var usuarioSalvo = this.criar(usuario, "ROLE_ALUNO");
-        return usuarioSalvo;
     }
 
 

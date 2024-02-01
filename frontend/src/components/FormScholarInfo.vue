@@ -64,7 +64,7 @@
 
     <div class="card-footer">
       <button type="submit" class="btn btn-primary">
-        Próximo <i class="fa fa-arrow-right" aria-hidden="true"></i>
+        Salvar etapa <i class="fa fa-arrow-right" aria-hidden="true"></i>
       </button>
     </div>
   </form>

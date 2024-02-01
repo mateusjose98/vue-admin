@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface TurmaRepository extends JpaRepository<Turma, Integer> {
-    @EntityGraph(attributePaths = {"sala", "serie"})
+    @EntityGraph(attributePaths = {"sala", "serie", "sala.recursos"})
     List<Turma> findBySerie(Serie serie);
 }

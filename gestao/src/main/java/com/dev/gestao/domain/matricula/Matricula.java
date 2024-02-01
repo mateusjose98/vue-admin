@@ -9,8 +9,6 @@ import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "Matriculas")
@@ -40,9 +38,7 @@ public class Matricula {
     @ManyToOne
     @JoinColumn
     private Turma turma;
-
     private LocalDateTime dataMatricula;
-
     @OneToOne
     @JoinColumn
     private Carne carne;

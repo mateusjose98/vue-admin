@@ -42,12 +42,6 @@
           <!-- /.card-body -->
         </div>
       </div>
-      <div class="col-sm-12 col-md-2 mb-2">
-        <a href="mailbox.html" class="btn btn-success btn-block"
-          ><span class="mr-1">Concluir </span
-          ><i class="fa fa-check" aria-hidden="true"></i
-        ></a>
-      </div>
 
       <!-- <div class="col-sm-12 col-md-12 col-lg-12">
         <DefaultCard titulo="Últimos alunos"> <ListStudentView /></DefaultCard>
@@ -102,6 +96,7 @@ export default {
       studentList: [],
       step: 1,
       idAluno: null,
+      idMatricula: null,
     };
   },
   created() {

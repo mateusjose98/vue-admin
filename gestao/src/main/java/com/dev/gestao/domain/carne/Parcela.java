@@ -1,6 +1,7 @@
 package com.dev.gestao.domain.carne;
 
 import com.dev.gestao.domain.usuario.Usuario;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -44,6 +45,7 @@ public class Parcela {
     private BigDecimal valor;
     @ManyToOne
     @JoinColumn
+    @JsonIgnore
     private Carne carne;
 
     @OneToOne

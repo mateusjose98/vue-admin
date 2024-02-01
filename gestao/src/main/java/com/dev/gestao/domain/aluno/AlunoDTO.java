@@ -33,7 +33,6 @@ public class AlunoDTO {
 
     @Size(max = 255)
     private String telefone;
-    private boolean criarAcesso;
     private String matricula;
     private Integer serieId;
 

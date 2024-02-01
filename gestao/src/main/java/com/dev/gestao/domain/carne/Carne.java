@@ -1,19 +1,14 @@
 package com.dev.gestao.domain.carne;
 
-import com.dev.gestao.domain.usuario.Usuario;
-import com.dev.gestao.util.BigDecimalUtils;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static com.dev.gestao.util.BigDecimalUtils.desconto;
@@ -41,14 +36,12 @@ public class Carne {
 
     @Column(nullable = false)
     private LocalDateTime dataEmissao;
-
-    @ManyToOne
-    @JoinColumn
-    private Usuario usuarioEmissor;
+    @Column(nullable = false)
+    private String usuarioEmissor;
 
     @OneToMany(mappedBy = "carne")
     private Set<Parcela> parcelas = new HashSet<>();
-    private Integer numeroParcelas;
+    private Integer numeroParcelas = 0;
 
     public void gerarParcelas(int diaVencimento, BigDecimal valorBase, BigDecimal percentualDesconto) {
         int anoAtual = LocalDate.now().getYear();
@@ -63,6 +56,7 @@ public class Carne {
                     .statusParcela(StatusParcela.EMITIDA).build());
             this.numeroParcelas++;
         }
+        this.setDataEmissao(LocalDateTime.now());
     }
 
 

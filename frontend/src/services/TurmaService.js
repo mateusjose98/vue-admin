@@ -47,6 +47,10 @@ class TurmaService {
     );
   }
 
+  async concluirMatricula(conclusao) {
+    return this.http.update(`api/matriculas/conclusao`, conclusao);
+  }
+
   async uploadFoto(id, formData) {
     return this.http.create(
       `${this.http.path}/upsert-foto/${id}`,

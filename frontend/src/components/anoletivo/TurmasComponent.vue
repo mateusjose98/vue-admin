@@ -56,7 +56,7 @@
       </div>
     </div>
     <div class="card-footer"></div>
-    <Modal id="turmas" labelSuccess="Salvar" titulo="Nova disciplina">
+    <Modal id="turmas" labelSuccess="Salvar" titulo="Nova turma">
       <form @submit.prevent="salvarTurma">
         <div class="row">
           <div class="col-sm-12">
@@ -112,6 +112,16 @@
                 id="vagas"
                 v-model="turma.vagasDisponiveis"
                 placeholder="Digite apenas os números"
+              />
+            </div>
+            <div class="form-group">
+              <label for="cpf">Valor base </label>
+              <input
+                type="text"
+                class="form-control"
+                id="vagas"
+                v-model="turma.valorBase"
+                placeholder="R$"
               />
             </div>
           </div>

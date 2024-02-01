@@ -1,9 +1,9 @@
 package com.dev.gestao.service;
 
+import com.dev.gestao.domain.carne.Carne;
 import com.dev.gestao.domain.carne.Parcela;
 import com.dev.gestao.domain.carne.StatusParcela;
-import com.dev.gestao.domain.matricula.Matricula;
-import com.dev.gestao.domain.turma.Turma;
+import com.dev.gestao.repository.CarneRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,13 +19,20 @@ import static com.dev.gestao.util.BigDecimalUtils.desconto;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class CarneService {
-    final MatriculaService matriculaService;
+//    final MatriculaService matriculaService;
     final TurmaService turmaService;
-    public List<Parcela> simular(Integer dia, BigDecimal desconto, Integer idMatricula) {
-        Matricula matricula = matriculaService.findById(idMatricula);
-        BigDecimal valorBase = matricula.getTurma().getValorBase();
-        return simularParcelas(dia, valorBase, desconto);
+    final CarneRepository carneRepository;
+
+    @Transactional
+    public Carne salvar(Carne carne) {
+        return carneRepository.save(carne);
     }
+
+//    public List<Parcela> simular(Integer dia, BigDecimal desconto, Integer idMatricula) {
+//        Matricula matricula = matriculaService.findById(idMatricula);
+//        BigDecimal valorBase = matricula.getTurma().getValorBase();
+//        return simularParcelas(dia, valorBase, desconto);
+//    }
 
     public List<Parcela> simularParcelas(int diaVencimento, BigDecimal valorBase, BigDecimal percentualDesconto) {
         List<Parcela> result = new ArrayList<>();

@@ -2,6 +2,7 @@ package com.dev.gestao.api;
 
 
 import com.dev.gestao.domain.matricula.Matricula;
+import com.dev.gestao.domain.matricula.MatriculaConclusaoDTO;
 import com.dev.gestao.domain.matricula.MatriculaCriacaoDTO;
 import com.dev.gestao.service.MatriculaService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -9,10 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,6 +32,12 @@ public class MatriculaResource {
     public ResponseEntity<Integer> create(MatriculaCriacaoDTO matriculaDTO) {
         final Integer createdId = matriculaService.create(matriculaDTO);
         return new ResponseEntity<>(createdId, HttpStatus.CREATED);
+    }
+
+    @PutMapping("conclusao")
+    public ResponseEntity<Matricula> concluirMatricula(@RequestBody MatriculaConclusaoDTO dto) {
+        final Matricula updatedId = matriculaService.concluir(dto);
+        return ResponseEntity.ok(updatedId);
     }
 
 

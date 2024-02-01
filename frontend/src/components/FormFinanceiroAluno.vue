@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="matricular">
+  <form @submit.prevent="finalizar">
     <div class="card-body">
       <div class="row">
         <div class="col-lg-3">
@@ -105,6 +105,7 @@
               type="checkbox"
               class="form-check-input"
               id="exampleCheck1"
+              v-model="conclusao.deveCriarAcesso"
             />
             <label class="form-check-label" for="exampleCheck1"
               >Criar acesso ao sistema para o aluno
@@ -120,17 +121,30 @@
     <!-- /.card-body -->
 
     <div class="card-footer">
-      <button type="submit" class="btn btn-default">Salvar</button>
+      <button type="submit" class="btn btn-primary">Salvar</button>
+    </div>
+    <button
+      @click="generatePDF"
+      class="btn btn-info btn-sm float-right"
+      id="download-button"
+    >
+      Download as PDF
+    </button>
+    <div id="carne">
+      <div style="border: 0.5px solid black; height: 200px">
+        <div class="flex">div</div>
+      </div>
     </div>
   </form>
 </template>
 <script>
 import TurmaService from "@/services/TurmaService";
+import AlunoService from "@/services/AlunoService";
 
 export default {
   name: "FormFinanceiroAluno",
   props: {
-    idMatricula: { type: Number, default: 100 },
+    idMatricula: { type: Number },
   },
   data() {
     return {
@@ -151,10 +165,17 @@ export default {
       desconto: 0.0,
       dia: 5,
       parcelas: [],
+      conclusao: {
+        deveCriarAcesso: true,
+      },
     };
   },
 
   methods: {
+    generatePDF() {
+      const element = document.getElementById("carne");
+      html2pdf().from(element).save();
+    },
     simular() {
       new TurmaService()
         .simular(this.dia, this.desconto, this.idMatricula)
@@ -168,29 +189,24 @@ export default {
         this.desconto = 50.0;
       }
     },
-    async matricular() {
+    async finalizar() {
       this.$store.commit("toggleLoading", true);
-      const alunoService = new AlunoService();
-      alunoService
-        .criar(this.aluno)
+      this.conclusao.idMatricula = this.idMatricula;
+      this.conclusao.desconto = this.desconto;
+      this.conclusao.dia = this.dia;
+      new TurmaService()
+        .concluirMatricula(this.conclusao)
         .then((r) => {
-          if (this.foto) {
-            let data = new FormData();
-            data.append("file", this.foto);
-            alunoService.uploadFoto(r, data);
-          }
           Toast.fire({
             icon: "success",
-            title: "Aluno cadastrado com sucesso: " + r,
+            title: "Matrícula concluída com sucesso: " + r,
           });
           this.$store.commit("toggleLoading", false);
         })
         .catch((e) => {
-          this.$store.commit("toggleLoading", false);
           console.log(e);
         })
         .finally(() => {
-          this.listar();
           this.$store.commit("toggleLoading", false);
         });
     },

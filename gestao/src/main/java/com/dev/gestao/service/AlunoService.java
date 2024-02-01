@@ -5,18 +5,17 @@ import com.dev.gestao.domain.aluno.AlunoDTO;
 import com.dev.gestao.domain.usuario.Usuario;
 import com.dev.gestao.repository.AlunoRepository;
 import com.dev.gestao.util.exceptions.NotFoundException;
-
-import java.time.LocalDate;
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
 import com.dev.gestao.util.exceptions.UniqueViolationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static com.dev.gestao.domain.enums.TipoEmailEvento.NOVO_USUARIO;
 import static com.dev.gestao.domain.enums.TipoEmailEvento.NOVO_USUARIO_ASSUNTO;
@@ -53,11 +52,6 @@ public class AlunoService {
         final Aluno aluno = new Aluno();
         if(cpfExists(alunoDTO.getCpf())) {
            throw new UniqueViolationException(String.format("O cpf %s já existe!", alunoDTO.getCpf()));
-        }
-        if(alunoDTO.isCriarAcesso()) {
-            Usuario usuario = usuarioService.criaraPartirDasCredenciais(alunoDTO.getCpf(), alunoDTO.getCpf());
-            aluno.setUsuario(usuario);
-            notificacaoService.enviar(NOVO_USUARIO_ASSUNTO,String.format(NOVO_USUARIO, alunoDTO.getNome(), UUID.randomUUID().toString().replace("-", "").substring(0, 4)), alunoDTO.getEmail(), null) ;
         }
 
         mapToEntity(alunoDTO, aluno);

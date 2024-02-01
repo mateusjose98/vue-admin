@@ -47,4 +47,11 @@ public class Professor {
     @LastModifiedDate
     @Column(nullable = false)
     private OffsetDateTime lastUpdated;
+
+    public Professor(ProfessorDTO professorDTO) {
+        this.nome = professorDTO.nome();
+        this.cpf = professorDTO.cpf();
+        this.email = professorDTO.email();
+        this.telefone = professorDTO.telefone();
+    }
 }
