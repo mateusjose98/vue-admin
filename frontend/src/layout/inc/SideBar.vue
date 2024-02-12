@@ -62,6 +62,9 @@
             :root="Teste"
             >Aluno</NavItemTree
           >
+          <NavItem icon="fas fa-id-badge" link="/funcionarios"
+            >Funcionários</NavItem
+          >
         </ul>
       </nav>
     </div>

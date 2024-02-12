@@ -2,7 +2,6 @@ package com.dev.gestao.service;
 
 import com.dev.gestao.domain.aluno.Aluno;
 import com.dev.gestao.domain.aluno.AlunoDTO;
-import com.dev.gestao.domain.usuario.Usuario;
 import com.dev.gestao.repository.AlunoRepository;
 import com.dev.gestao.util.exceptions.NotFoundException;
 import com.dev.gestao.util.exceptions.UniqueViolationException;
@@ -14,11 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
-
-import static com.dev.gestao.domain.enums.TipoEmailEvento.NOVO_USUARIO;
-import static com.dev.gestao.domain.enums.TipoEmailEvento.NOVO_USUARIO_ASSUNTO;
 
 
 @Service
@@ -28,9 +23,8 @@ public class AlunoService {
 
     private final AlunoRepository alunoRepository;
     private final StorageService storageService;
-    private final UsuarioService usuarioService;
-    private final NotificacaoService notificacaoService;
     private final ResponsavelService responsavelService;
+
 
     public List<AlunoDTO> findAll() {
         final List<Aluno> alunoes = alunoRepository.findAll(Sort.by("id").descending());

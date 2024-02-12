@@ -1,7 +1,18 @@
 server:
   port: 8081
 spring:
-
+  rabbitmq:
+    request:
+      host: ${RABBITMQ_HOST:localhost
+      port: ${RABBITMQ_PORT:5672}
+      username: ${RABBITMQ_USERNAME:guest}
+      password: ${RABBITMQ_PASSWORD:guest}
+      exchange:
+        producer: ex.producer
+      routing-key:
+        producer: rk.producer
+      deadletter:
+        producer: dlx.producer
   mail:
     host: ${EMAIL_HOST}
     port: ${EMAIL_PORT}

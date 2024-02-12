@@ -5,6 +5,7 @@ import LoginView from "../views/LoginView.vue";
 import MainLayout from "../layout/MainLayout.vue";
 import SearchStudent from "../views/SearchStudent.vue";
 import CreateStudent from "../views/CreateStudent.vue";
+import FuncionarioView from "../views/FuncionarioView.vue";
 const routes = [
   {
     path: "/",
@@ -25,6 +26,10 @@ const routes = [
       {
         path: "cadastro-aluno",
         component: CreateStudent,
+      },
+      {
+        path: "funcionarios",
+        component: FuncionarioView,
       },
     ],
   },

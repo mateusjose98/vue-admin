@@ -2943,6 +2943,11 @@ p-try@^2.0.0:
   resolved "https://registry.npmjs.org/p-try/-/p-try-2.2.0.tgz"
   integrity sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==
 
+papaparse@^5.3.0:
+  version "5.4.1"
+  resolved "https://registry.npmjs.org/papaparse/-/papaparse-5.4.1.tgz"
+  integrity sha512-HipMsgJkZu8br23pW15uvo6sib6wne/4woLZPlFf3rpDyMe9ywEXUsuD7+6K9PRkJlVT51j/sCOYDKGGS3ZJrw==
+
 param-case@^3.0.4:
   version "3.0.4"
   resolved "https://registry.npmjs.org/param-case/-/param-case-3.0.4.tgz"
@@ -4141,6 +4146,13 @@ vue-loading-overlay@6.0:
   resolved "https://registry.npmjs.org/vue-loading-overlay/-/vue-loading-overlay-6.0.3.tgz"
   integrity sha512-Ab0hqnVKasVS2mNUo8Wkm95mSbk5fXp/karZmMou5yP0hTUOox/kZuBLNwgzJ4kFP829wFJl7O7FN1Dr0kRaVQ==
 
+vue-papa-parse@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.npmjs.org/vue-papa-parse/-/vue-papa-parse-3.1.0.tgz"
+  integrity sha512-5YdF3Dtf49EGfaz3+IgIpUw9yYuvV3HekZkob6jrK/Ffz1aCrWjevtcQByKxrNtK7RAL39B0ca93bogKuiQQKg==
+  dependencies:
+    papaparse "^5.3.0"
+
 vue-router@^4.0.3:
   version "4.2.5"
   resolved "https://registry.npmjs.org/vue-router/-/vue-router-4.2.5.tgz"
@@ -4173,7 +4185,7 @@ vue-the-mask@^0.11.1:
   resolved "https://registry.npmjs.org/vue-the-mask/-/vue-the-mask-0.11.1.tgz"
   integrity sha512-UquSfnSWejD0zAfcD+3jJ1chUAkOAyoxya9Lxh9acCRtrlmGcAIvd0cQYraWqKenbuZJUdum+S174atv2AuEHQ==
 
-vue@*, vue@^3.2.0, vue@^3.2.13, vue@3.4.11:
+vue@*, "vue@^2.6.0 || >=3.0.0", vue@^3.2.0, vue@^3.2.13, vue@3.4.11:
   version "3.4.11"
   resolved "https://registry.npmjs.org/vue/-/vue-3.4.11.tgz"
   integrity sha512-iaA98z14ZrrVJlclpHX/HCNeacbMOLdX5foYN7/vt4cHFhDkBRzojjbLQZ2UDRAeNV1v4V5I21+QpdCXWlpG5Q==
