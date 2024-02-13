@@ -13,10 +13,10 @@
           </div>
           <div class="card-body">
             <div class="d-flex align-items-center flex-column">
-              <h1>Funcionários</h1>
+
               <p>
                 Insira um arquivo compatível com formato
-                <span class="badge badge-success">EXCEL</span> para inserir os
+                <span class="badge badge-success">CSV</span> para inserir os
                 funcionários
               </p>
               <div></div>
@@ -25,34 +25,36 @@
                   :maxSize="10"
                   accept="csv"
                   @file-uploaded="getUploadedData"
+                  :jsonData="previewData"
+                  @resetFileInput="resetData"
                 />
 
-                <div v-if="fileSelected">
-                  Successfully Selected file: {{ file.name }}.{{
-                    file.fileExtention
-                  }}
-                </div>
+<!--                <div v-if="fileSelected">-->
+<!--                 Arquivo selecionado: {{ file.name }}.{{-->
+<!--                    file.fileExtention-->
+<!--                  }}-->
+<!--                </div>-->
               </div>
             </div>
           </div>
-          <div class="col-12">
-            Confira aqui sua planilha, caso não seja esta, atualize:
-            <table class="table">
+          <div v-if="fileSelected" class="col-12">
+           Pré-visualização
+            <div class="table-responsive p-0" style="height: 300px">
+              <table class="table table-head-fixed table-hover text-nowrap">
               <thead>
                 <tr>
-                  <th v-for="item in previewColumns">{{ item }}</th>
+                  <th v-for="item in [...previewColumns, 'unique']">{{ item }}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="data in previewData">
-                  <!-- <td >{{ data }}</td> -->
-                  <td>{{ data.nome }}</td>
-                  <td>{{ data.email }}</td>
-                  <td>{{ data.gender }}</td>
-                  <td>{{ data.tipo }}</td>
+                  <td v-for="item in [...previewColumns, 'unique']">
+                    {{ item === 'unique' ? (data[item] === true ? 'Sim' : 'Não') : data[item] }}
+                  </td>
                 </tr>
               </tbody>
             </table>
+          </div>
           </div>
         </div>
       </div>
@@ -72,9 +74,16 @@ export default {
       showFileSelect: false,
       previewColumns: [],
       previewData: [],
+
     };
   },
   methods: {
+    resetData(){
+      this.previewData = []
+      this.previewColumns = []
+      this.file = {}
+
+    },
     getUploadedData(file) {
       this.fileSelected = true;
       this.showFileSelect = false;
@@ -83,8 +92,18 @@ export default {
         header: true,
         skipEmptyLines: true,
         complete: (results) => {
-          // get keys of object
           this.previewColumns = Object.keys(results.data[0]);
+          const uniqueCPFSet = new Set();
+          let nonUniqueList = results.data.filter(obj => {
+            if (!uniqueCPFSet.has(obj.cpf)) {
+              uniqueCPFSet.add(obj.cpf);
+              return false;
+            }
+            return true;
+          });
+          results.data.forEach(obj => {
+            obj.unique = !nonUniqueList.includes(obj);
+          })
           this.previewData = results.data;
         },
       });
@@ -95,6 +114,7 @@ export default {
 <style scoped>
 .file-upload {
   width: 100%;
+
   display: flex;
   align-items: flex-start;
   justify-content: center;

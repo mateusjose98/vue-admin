@@ -1,7 +1,9 @@
 package com.dev.gestao.domain.professor;
 
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -13,6 +15,8 @@ import java.time.OffsetDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
+@NoArgsConstructor
+@EqualsAndHashCode(of = {"cpf"})
 public class Professor {
 
     @Id
@@ -54,4 +58,13 @@ public class Professor {
         this.email = professorDTO.email();
         this.telefone = professorDTO.telefone();
     }
+
+    public Professor(String nome, String cpf, String email, String telefone) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.email = email;
+        this.telefone = telefone;
+    }
+
+
 }

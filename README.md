@@ -10,6 +10,9 @@
 
 ![Alt text](image-1.png)
 
+### Tela de inserção de funcionários via arquivo .csv com visualização prévia dos dados
+![img.png](img.png)
+
 ### Tela de login
 
 ![](imgs/login.png)

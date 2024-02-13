@@ -3,7 +3,7 @@
     <div class="file-upload__area">
       <div v-if="!file.isUploaded">
         <input type="file" name="" id="" @change="handleFileChange($event)" />
-        aaaaaaa
+
         <div v-if="errors.length > 0">
           <div
             class="file-upload__error"
@@ -16,18 +16,16 @@
       </div>
       <div v-if="file.isUploaded" class="upload-preview">
         <img :src="file.url" v-if="file.isImage" class="file-image" alt="" />
-        <div v-if="!file.isImage" class="file-extention">
-          {{ file.fileExtention }}
-        </div>
+
         <span class="file-name">
-          {{ file.name }}{{ file.isImage ? `.${file.fileExtention}` : "" }}
+          Nome do arquivo escolhido: {{ file.name }}.{{ file.fileExtention }}
         </span>
-        <div class="">
-          <button class="btn btn-danger m-1" @click="resetFileInput">
-            Quero outro
+        <div class="mt-1">
+          <button class="btn btn-success m-1" @click="enviarArquivo">
+            Quero este <i class="fa fa-thumbs-up" aria-hidden="true"></i>
           </button>
-          <button class="btn btn-success m-1" @click="sendDataToParent">
-            Quero este
+          <button class="btn btn-danger m-1" @click="resetFileInput">
+            Quero outro <i class="fa fa-thumbs-down" aria-hidden="true"></i>
           </button>
         </div>
       </div>
@@ -35,6 +33,8 @@
   </div>
 </template>
 <script>
+
+import FuncionarioService from "@/services/FuncionarioService"
 export default {
   name: "FileUpload",
   data() {
@@ -55,6 +55,9 @@ export default {
     };
   },
   props: {
+    jsonData: {
+      type: Array
+    },
     maxSize: {
       type: Number,
       default: 5,
@@ -66,10 +69,55 @@ export default {
     },
   },
   methods: {
-    sendDataToParent() {
-      this.resetFileInput();
-      this.$emit("file-uploaded", this.file);
+     removerDuplicatasPorCPF(array) {
+      const uniqueCPFSet = new Set();
+      return array.filter(obj => {
+        if (!uniqueCPFSet.has(obj.cpf)) {
+          uniqueCPFSet.add(obj.cpf);
+          return true;
+        }
+        return false;
+      });
     },
+    enviarArquivo() {
+
+      let service = new FuncionarioService();
+      if(this.jsonData) {
+
+        const copy = this.removerDuplicatasPorCPF(this.jsonData);
+
+        if (copy.length < this.jsonData.length) {
+          Toast.fire({
+            icon: "danger",
+            title: `No arquivo existem cpfs repeditidos!
+                    Ajuste o arquivo e tente novamente!`,
+          });
+          this.resetFileInput();
+          return;
+        }
+        const chunkSize = 20;
+        const chunks = [];
+        for (let i = 0; i <  copy.length; i += chunkSize) {
+          const chunk = copy.slice(i, i + chunkSize);
+          chunks.push(chunk);
+        }
+
+
+        for (let i = 0; i < chunks.length; i++) {
+          console.log(chunks[i])
+          service.inserirFuncionarios(chunks[i]).then((r) => {
+            console.log(r)
+            Toast.fire({
+              icon: r === true ? "success" : "danger",
+              title: `Parte : ${i + 1} enviada`,
+            });
+          }).catch(e => {
+            console.error(e)
+          });
+        }
+      }
+    },
+
     handleFileChange(e) {
       this.errors = [];
       if (e.target.files && e.target.files[0]) {
@@ -92,8 +140,12 @@ export default {
             blob: file,
           };
         } else {
-          console.log("Invalid file");
+          console.log("Arquivo inválido!");
         }
+      }
+
+      if(this.file) {
+        this.$emit("file-uploaded", this.file);
       }
     },
     isFileSizeValid(fileSize) {
@@ -136,9 +188,10 @@ export default {
           isUploaded: false,
         };
       });
+      this.$emit('resetFileInput');
     },
   },
-  emits: ["file-uploaded"],
+  emits: ["file-uploaded", 'resetFileInput'],
 };
 </script>
 

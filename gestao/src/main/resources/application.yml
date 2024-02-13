@@ -60,8 +60,10 @@ spring:
         id:
           new_generator_mappings: true
   docker:
+
     compose:
       lifecycle-management: start-only
+      file: C:\Users\pc\Documents\admin\gestao\docker-compose.yml
 
   messages:
   pathsToMatch: /api/**

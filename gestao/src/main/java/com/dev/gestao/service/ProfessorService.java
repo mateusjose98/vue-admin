@@ -1,6 +1,8 @@
 package com.dev.gestao.service;
 
+import com.amazonaws.util.CollectionUtils;
 import com.dev.gestao.domain.professor.Professor;
+import com.dev.gestao.domain.professor.FuncionarioBatchItemDTO;
 import com.dev.gestao.domain.professor.ProfessorDTO;
 import com.dev.gestao.repository.ProfessorRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,5 +33,11 @@ public class ProfessorService {
             usuarioService.criaraPartirDasCredenciais(professorDTO.email(), professorDTO.cpf(), "ROLE_PROFESSOR");
         }
         return fromDB.getId();
+    }
+
+
+    public boolean saveAll(List<Professor> professores) {
+        List<Professor> saved = professorRepository.saveAll(professores);
+        return !saved.isEmpty();
     }
 }

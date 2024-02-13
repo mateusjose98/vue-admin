@@ -9,7 +9,7 @@ import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 import VueTheMask from "vue-the-mask";
 import VuePapaParse from "vue-papa-parse";
-//configuração do Toast
+
 const Toast = Swal.mixin({
   toast: true,
   position: "top-end",
@@ -17,7 +17,7 @@ const Toast = Swal.mixin({
   timerProgressBar: true,
   showConfirmButton: false,
 });
-//salva a configuração global na palavra "Toast"
+
 window.Toast = Toast;
 const app = createApp(App);
 app.use(VuePapaParse);
